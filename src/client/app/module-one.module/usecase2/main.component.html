@@ -1,1 +1,41 @@
-<h1>Aquí va el componente principal del caso de uso 2 del módulo 1 -</h1>
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-lg-12">
+            <h2 class="page-header">
+                Caso de uso 1
+            </h2>
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa"></i><a>Modulo 1</a>
+                </li>
+                <li class="active">
+                    <i class="fa fa-edit"></i> <a routerLink="/dashboard/module-one-usecase1">Caso de uso 1</a>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <!-- Page Body -->
+
+    <div class="col-xl-8 text-xs-left">
+        <h1>Aquí va el componente principal del caso de uso 2 del módulo 1</h1>
+        <alert type="success">Bootstrap alert dentro del componente</alert>
+        <form role="form">
+            <div [ngClass]="['form-group', getClassForClassGroup()]">
+                <label class="form-control-label" for="inputSuccess">Input with validation</label>
+                <input type="text" id="inputSuccess" [ngClass]="['form-control', getClassForInput()]">
+            </div>
+            <p>
+                <button (click)="valid = !valid;" type="button" class="btn btn-sm btn-primary">Toggle   valid/invalid</button>
+            </p>
+        </form>
+        <form [formGroup]="myForm" novalidate>
+            <my-date-picker name="mydate" [options]="myDatePickerOptions" [selDate]="selDate" [locale]=locale formControlName="myDate" (dateChanged)="onDateChanged($event)" (calendarViewChanged)="onCalendarViewChanged($event)" (calendarToggle)="onCalendarToggle($event)"></my-date-picker>
+            <td style="vertical-align: top">
+                <div style="padding:4px;border-radius:4px;float:right">
+                    {{selectedTextInline}}
+                </div>
+            </td>
+        </form>
+    </div>
+</div>
