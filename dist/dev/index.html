@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <base href="/">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Nombre aplicación</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" id="appIcon" href="/assets/favicon.ico" type="image/x-icon" />
+    <!-- inject:css -->
+    <link rel="stylesheet" href="/node_modules/font-awesome/css/font-awesome.css?1488840530021">
+    <link rel="stylesheet" href="/assets/sass/app.css?1488840530023">
+    <!-- endinject -->
+</head>
+<body>
+
+    <sd-app>
+        <div class="spinner">
+            <div class="bounce1"></div>
+            <div class="bounce2"></div>
+            <div class="bounce3"></div>
+        </div>
+    </sd-app>
+
+    <script>
+    // Fixes undefined module function in SystemJS bundle
+    function module() {}
+    </script>
+
+    <!-- shims:js -->
+    <script src="/node_modules/core-js/client/shim.min.js?1488840530011"></script>
+    <script src="/node_modules/systemjs/dist/system.src.js?1488840530013"></script>
+    <!-- endinject -->
+
+    
+    <script src="/app/system-config.js"></script>
+    
+
+    <!-- libs:js -->
+    <script src="/node_modules/zone.js/dist/zone.js?1488840530017"></script>
+    <script src="/node_modules/rxjs/bundles/Rx.min.js?1488840530018"></script>
+    <script src="/node_modules/jquery/dist/jquery.min.js?1488840530019"></script>
+    <script src="/node_modules/highcharts/highcharts.js?1488840530020"></script>
+    <!-- endinject -->
+
+    <!-- inject:js -->
+    <!-- endinject -->
+
+    
+    <script>
+        System.import('app/main')
+        .catch(function (e) {
+            console.error(e,
+                'Report this error at https://github.com/mgechev/angular2-seed/issues');
+        });
+    </script>
+    
+
+</body>
+</html>
