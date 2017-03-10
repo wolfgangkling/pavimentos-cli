@@ -33,6 +33,11 @@ export class MainComponent implements OnInit {
 
     save(model: any){
         let response = this.service.create({
+            id: 1,
+            state: false,
+            contact_name: '',
+            contact_phone: '',
+            contact_email: '',
             name: this.myForm.value.name,
             kind: this.myForm.value.kind,
             start_date: this.myForm.value.start_date,

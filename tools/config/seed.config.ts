@@ -347,6 +347,9 @@ export class SeedConfig {
     },
     packages: {
       rxjs: { defaultExtension: 'js' }
+    },
+    map : {
+      'ng2-validation': 'ng2-validation/bundles/ng2-validation.umd.js'
     }
   };
 

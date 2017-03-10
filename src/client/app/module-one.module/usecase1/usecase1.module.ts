@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { CustomFormsModule } from 'ng2-validation'
 
 import { MainComponent } from './main.component';
-import { AgreementDetailComponent } from './detail.component';
+//import { AgreementDetailComponent } from './detail.component';
 
 import { FormsModule, ReactiveFormsModule }   from '@angular/forms';
 import { HttpModule }    from '@angular/http';
@@ -21,8 +22,12 @@ import { DatepickerModule} from 'ng2-bootstrap';
         FormsModule,
         ReactiveFormsModule,
         HttpModule,
+        CustomFormsModule,
     ],
-    declarations: [MainComponent, AgreementDetailComponent],
+    declarations: [
+        MainComponent, 
+        //AgreementDetailComponent
+    ],
     exports: [MainComponent],
 })
 

@@ -5,13 +5,13 @@
     <ul class="list-group">
         <div class="nested-menu">
             <a class="list-group-item" (click)="addExpandClass('module1')">
-                <span><i class="fa fa-plus"></i> &nbsp; Convenios</span>
+                <span><i class="fa fa-plus"></i> &nbsp; AASHTO</span>
             </a>
             <li class="nested" [ngClass]="{'expand' : showMenu === 'module1' }">
                 <ul class="submenu">
                     <li>
                         <a [routerLink]="['module-one-usecase1']" [routerLinkActive]="['router-link-active']" class="list-group-item">
-                            <i class="fa fa-fw fa-edit"></i> Administrar convenios
+                            <i class="fa fa-fw fa-edit"></i> Pavimento flexible
                         </a>
                     </li>
                     <li>

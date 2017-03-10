@@ -1,20 +1,53 @@
-import { Injectable }    from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 
-import { Agreement } from './agreement.model';
+import { Pavimento } from './pavimento.model';
 
 @Injectable()
-export class AgreementApiService {
+export class AashtoFlexibleService {
 
-  private headers = new Headers({'Content-Type': 'application/json'});
+  //private headers = new Headers({'Content-Type': 'application/json'});
   //private AgreementUrl = 'http://localhost:8000/agreement';
-  private AgreementUrl = 'http://192.168.86.5:8000/agreement';
+  //private AgreementUrl = 'http://192.168.86.5:8000/agreement';
 
-  constructor(private http: Http) { }
+  //constructor(private http: Http) { }
 
-  //*/
+  calcular(pavimento: Pavimento): Promise<Pavimento> {
+    pavimento.ejesequiv = 1;
+    pavimento.confiabdiseno = 2;
+    pavimento.errestandar = 3;
+    pavimento.modresili = 4;
+    pavimento.servicini = 5;
+    pavimento.servicfin = 6;
+    pavimento.numestruc = 7;
+
+    return Promise.resolve(pavimento);
+  }
+
+  confiabDisenoOptions(): string[] {
+    return [
+      '99.99',
+      '99.90',
+      '98.00',
+      '97.00',
+      '96.00',
+      '95.00',
+      '94.00',
+      '93.00',
+      '92.00',
+      '91.00',
+      '90.00',
+      '85.00',
+      '80.00',
+      '75.00',
+      '70.00',
+      '60.00',
+      '50.00',
+    ]
+  }
+  /*
   getAgreements(): Promise<Agreement[]> {
     return this.http.get(`${this.AgreementUrl}/`)
                .toPromise()
@@ -38,7 +71,7 @@ export class AgreementApiService {
       .then(() => null)
       .catch(this.handleError);
   }
-  //*/
+  
   create(agreement: Agreement): Promise<Agreement> {
     return this.http
       .post(
@@ -62,7 +95,6 @@ export class AgreementApiService {
       .then(res => res.json())
       .catch(this.handleError);
   }
-  //*/
   update(agreement: Agreement): Promise<Agreement> {
     const url = `${this.AgreementUrl}/${agreement.id}/`;
     return this.http
@@ -71,9 +103,10 @@ export class AgreementApiService {
       .then(() => agreement)
       .catch(this.handleError);
   }
-  //*/
   private handleError(error: any): Promise<any> {
     console.error('An error occurred', error); // for demo purposes only
     return Promise.reject(error.message || error);
   }
+*/
+
 }
