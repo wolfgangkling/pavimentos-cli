@@ -2,28 +2,95 @@ import { Injectable } from '@angular/core';
 import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
-
+import { Observable } from 'rxjs/Rx';
 import { Pavimento } from './pavimento.model';
+
+import { roundDecimal } from '../../util/util.math';
 
 @Injectable()
 export class AashtoFlexibleService {
 
-  //private headers = new Headers({'Content-Type': 'application/json'});
-  //private AgreementUrl = 'http://localhost:8000/agreement';
-  //private AgreementUrl = 'http://192.168.86.5:8000/agreement';
+  calcular(pavimento: Pavimento): Observable<Pavimento> {
 
-  //constructor(private http: Http) { }
+    let N: number = pavimento.ejesequiv;
+    let R: string = pavimento.confiabdiseno;
+    let Zr: number = this.calcZr(R);
+    let So: number = pavimento.errestandar;
+    let Po: number = pavimento.servicini;
+    let Pt: number = pavimento.servicfin;
+    let Mr: number = pavimento.modresili;
 
-  calcular(pavimento: Pavimento): Promise<Pavimento> {
-    pavimento.ejesequiv = 1;
-    pavimento.confiabdiseno = 2;
-    pavimento.errestandar = 3;
-    pavimento.modresili = 4;
-    pavimento.servicini = 5;
-    pavimento.servicfin = 6;
-    pavimento.numestruc = 7;
+    let logW18_objetivo: number = roundDecimal(Math.log10(N), 3);
+    let log_obtenido: number = 0;
 
-    return Promise.resolve(pavimento);
+    let SN_1: number = 100;
+    let SN_2: number = 0;
+    let snCheck: number = SN_1;
+
+    log_obtenido = roundDecimal(Zr * So + 9.36 * Math.log10(snCheck + 1) - 0.2 +
+      ((Math.log10((Po - Pt) / 2.7)) / (0.4 + (1094 / ((snCheck + 1) ^ 5.19)))) +
+      2.32 * Math.log10(Mr / 0.07) - 8.07, 3);
+
+    for (var i = 0; logW18_objetivo != log_obtenido && i < 100; i++) {
+      if (logW18_objetivo < log_obtenido) {
+        SN_2 = SN_1
+        SN_1 = SN_1 / 2
+      }
+      else {
+        SN_1 = (SN_1 + SN_2) / 2
+      }
+      log_obtenido = roundDecimal(Zr * So + 9.36 * Math.log10(SN_1 + 1) - 0.2 +
+        ((Math.log10((Po - Pt) / 2.7)) / (0.4 + (1094 / ((SN_1 + 1) ^ 5.19)))) +
+        2.32 * Math.log10(Mr / 0.07) - 8.07, 3);
+    }
+    if (logW18_objetivo == log_obtenido) {
+      pavimento.numestruc = SN_1;
+    }
+    else {
+      pavimento.numestruc = null;
+    }
+
+    return Observable.of(pavimento);
+  }
+
+  calcZr(R: string): number {
+    switch (R) {
+      case "50.00":
+        return 0;
+      case "60.00":
+        return -0.253;
+      case "70.00":
+        return -0.524;
+      case "75.00":
+        return -0.674;
+      case "80.00":
+        return -0.841;
+      case "85.00":
+        return -1.037;
+      case "90.00":
+        return -1.282;
+      case "91.00":
+        return -1.34;
+      case "92.00":
+        return -1.405;
+      case "93.00":
+        return -1.476;
+      case "94.00":
+        return -1.555;
+      case "95.00":
+        return -1.645;
+      case "96.00":
+        return -1.751;
+      case "97.00":
+        return -1.881;
+      case "98.00":
+        return -2.054;
+      case "99.90":
+        return -3.09;
+      case "99.99":
+        return -3.75;
+      default: throw new RangeError('R contiene un valor inválido');
+    }
   }
 
   confiabDisenoOptions(): string[] {
@@ -47,66 +114,4 @@ export class AashtoFlexibleService {
       '50.00',
     ]
   }
-  /*
-  getAgreements(): Promise<Agreement[]> {
-    return this.http.get(`${this.AgreementUrl}/`)
-               .toPromise()
-               .then(response => response.json() as Agreement[])
-               .catch(this.handleError);
-  }
-
-
-  getAgreement(id: number): Promise<Agreement> {
-    const url = `${this.AgreementUrl}/${id}`;
-    return this.http.get(url)
-      .toPromise()
-      .then(response => response.json() as Agreement)
-      .catch(this.handleError);
-  }
-
-  delete(id: number): Promise<void> {
-    const url = `${this.AgreementUrl}/${id}`;
-    return this.http.delete(url, {headers: this.headers})
-      .toPromise()
-      .then(() => null)
-      .catch(this.handleError);
-  }
-  
-  create(agreement: Agreement): Promise<Agreement> {
-    return this.http
-      .post(
-          `${this.AgreementUrl}/`,
-          JSON.stringify(
-              {
-                  name: agreement.name,
-                  kind: agreement.kind,
-                  start_date: agreement.start_date,
-                  end_date: agreement.end_date,
-                  state: agreement.state,
-                  contact_name: agreement.contact_name,
-                  contact_phone: agreement.contact_phone,
-                  contact_email: agreement.contact_email,
-                  details: agreement.details,
-              }
-          ),
-          {headers: this.headers}
-        )
-      .toPromise()
-      .then(res => res.json())
-      .catch(this.handleError);
-  }
-  update(agreement: Agreement): Promise<Agreement> {
-    const url = `${this.AgreementUrl}/${agreement.id}/`;
-    return this.http
-      .put(url, JSON.stringify(agreement), {headers: this.headers})
-      .toPromise()
-      .then(() => agreement)
-      .catch(this.handleError);
-  }
-  private handleError(error: any): Promise<any> {
-    console.error('An error occurred', error); // for demo purposes only
-    return Promise.reject(error.message || error);
-  }
-*/
-
 }

@@ -1,7 +1,7 @@
 export class Pavimento {
   constructor(
     public ejesequiv: number,
-    public confiabdiseno: number,
+    public confiabdiseno: string,
     public errestandar: number,
     public modresili: number,
     public servicini: number,

@@ -18,6 +18,7 @@ import { AashtoFlexibleService } from './aashto-flexible.service';
 export class MainComponent implements OnInit {
 
     myForm: FormGroup;
+    confiabDisenoOptions: string[];
 
     constructor(
         private _fb: FormBuilder,
@@ -29,18 +30,27 @@ export class MainComponent implements OnInit {
             ejesequiv: ['', [Validators.required, CustomValidators.range([0, 10000000])]],
             confiabdiseno: ['', [Validators.required]],
             errestandar: ['', [Validators.required, CustomValidators.range([0, 1])]],
-            modresili: ['', [Validators.required, CustomValidators.range([0, 1])]],
-            /*
-            details: ['', [Validators.minLength(5), Validators.maxLength(10)]],
-            kind: ['', [Validators.required]],
-            start_date: ['', [Validators.pattern('^(20[1-9][0-9])-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])$')]],
-            end_date: ['', [Validators.pattern('^(20[1-9][0-9])-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])$')]]
-            */
+            modresili: ['', [Validators.required, CustomValidators.range([0, 1000])]],
+            servicini: ['', [Validators.required, CustomValidators.range([0, 5])]],
+            servicfin: ['', [Validators.required, CustomValidators.range([0, 5])]],
+            numestruc: ['', [Validators.required, CustomValidators.min(0)]],
         });
+        this.confiabDisenoOptions = this.getConfiabDisenoOptions();
     }
 
     calcular(myForm: FormGroup) {
         console.log('calcular()');
+        
+        let pavimento = this.formToPavimento(myForm);
+        console.log('Pavimento frm: ' + JSON.stringify(pavimento));  
+
+        this.aashtoFlexibleService.calcular(pavimento).subscribe(data => pavimento = data);
+
+        this.fillFormWithPavimento(pavimento);
+        console.log('Pavimento res: ' + JSON.stringify(pavimento)); 
+    }
+
+    private formToPavimento(myForm: FormGroup): Pavimento {
         let pavimento: Pavimento = {
             ejesequiv: myForm.value.ejesequiv,
             confiabdiseno: myForm.value.confiabdiseno,
@@ -50,18 +60,21 @@ export class MainComponent implements OnInit {
             servicfin: myForm.value.servicfin,
             numestruc: myForm.value.numestruc,
         };
-
-        console.log('Pavimento: ' + JSON.stringify(pavimento));  
-
-        let response = this.aashtoFlexibleService.calcular(pavimento);
-
-        console.log(JSON.stringify(response));
-        this.myForm.reset();
+        return pavimento;
     }
 
-    getConfiabDisenoOptions() {
-        console.log('getConfiabDisenoOptions()');
+    private fillFormWithPavimento(pavimento: Pavimento) {
+        this.myForm.controls['ejesequiv'].setValue(pavimento.ejesequiv);
+        this.myForm.controls['confiabdiseno'].setValue(pavimento.confiabdiseno);
+        this.myForm.controls['errestandar'].setValue(pavimento.errestandar);
+        this.myForm.controls['modresili'].setValue(pavimento.modresili);
+        this.myForm.controls['servicini'].setValue(pavimento.servicini);
+        this.myForm.controls['servicfin'].setValue(pavimento.servicfin);
+        this.myForm.controls['numestruc'].setValue(pavimento.numestruc);
+    }
 
+    private getConfiabDisenoOptions() {
+        console.log('getConfiabDisenoOptions()');
         return this.aashtoFlexibleService.confiabDisenoOptions();
     }
 

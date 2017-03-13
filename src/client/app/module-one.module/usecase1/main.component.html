@@ -40,11 +40,11 @@
                         <span class="input-group-addon">R</span>
                         <select class="form-control form-control-success" formControlName="confiabdiseno" id="id_confiabdiseno" [ngStyle]="{'height': '38px'}">
                             <option value="">Seleccione un tipo</option>
-                            <option *ngFor="let confiabdiseno of getConfiabDisenoOptions()" [value]="confiabdiseno">{{confiabdiseno}}</option>
+                            <option *ngFor="let confiabdiseno of confiabDisenoOptions" [value]="confiabdiseno">{{confiabdiseno}}</option>
                         </select>
                         <span class="input-group-addon">%</span>
                     </div>
-                    <small *ngIf="!myForm.controls.confiabdiseno.valid" class="text-danger">
+                    <small *ngIf="myForm.dirty && (!myForm.controls.confiabdiseno.valid)" class="text-danger">
                     Seleccione una opcion valida
                     </small>
                 </div>
@@ -77,13 +77,66 @@
                     <div class="input-group">
                         <span class="input-group-addon">Mr</span>
                         <input type="text" formControlName="modresili" class="form-control" id="id_modresili">
+                        <span class="input-group-addon">MPa</span>
                     </div>
                     <small *ngIf="myForm.dirty && (!myForm.controls.modresili.valid)" class="text-danger">
                         'El modulo resiliente debe ser > 0 y < 1'
                     </small>
                 </div>
                 <div class="col-sm-3">
-                    <button type="button" class="col-sm-4 btn btn-info" data-toggle="modal" data-target="#modresili_modal">Ayuda
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modresili_modal">Ayuda
+                    </button>
+                </div>
+            </div>
+            <div class="form-group">&nbsp;</div>
+            <div class="form-group" [ngClass]="[myForm.dirty?(myForm.controls.servicini.valid?'has-success':'has-error'):'']">
+                <label for="id_servicini" class="col-sm-3 form-control-label">Serviciabilidad inicial</label>
+                <div class="col-sm-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">Po</span>
+                        <input type="text" formControlName="servicini" class="form-control" id="id_servicini">
+                    </div>
+                    <small *ngIf="myForm.dirty && (!myForm.controls.servicini.valid)" class="text-danger">
+                        'La serviciabilidad inicial > 0 y < 5'
+                    </small>
+                </div>
+                <div class="col-sm-3">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#servicini_modal">Ayuda
+                    </button>
+                </div>
+            </div>
+            <div class="form-group">&nbsp;</div>
+            <div class="form-group" [ngClass]="[myForm.dirty?(myForm.controls.servicfin.valid?'has-success':'has-error'):'']">
+                <label for="id_servicfin" class="col-sm-3 form-control-label">Serviciabilidad final</label>
+                <div class="col-sm-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">Pt</span>
+                        <input type="text" formControlName="servicfin" class="form-control" id="id_servicfin">
+                    </div>
+                    <small *ngIf="myForm.dirty && (!myForm.controls.servicfin.valid)" class="text-danger">
+                        'La serviciabilidad final > 0 y < 5'
+                    </small>
+                </div>
+                <div class="col-sm-3">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#servicfin_modal">Ayuda
+                    </button>
+                </div>
+            </div>
+            <div class="form-group">&nbsp;</div>
+            <div class="form-group" [ngClass]="[myForm.dirty?(myForm.controls.numestruc.valid?'has-success':'has-error'):'']">
+                <label for="id_numestruc" class="col-sm-3 form-control-label">Número estructural requerido</label>
+                <div class="col-sm-6">
+                    <div class="input-group">
+                        <span class="input-group-addon">SNreq</span>
+                        <input type="text" formControlName="numestruc" class="form-control" id="id_numestruc">
+                        <span class="input-group-addon">pulg</span>
+                    </div>
+                    <small *ngIf="myForm.dirty && (!myForm.controls.numestruc.valid)" class="text-danger">
+                        'El número estructural debe ser > 0'
+                    </small>
+                </div>
+                <div class="col-sm-3">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modresili_modal">Ayuda
                     </button>
                 </div>
             </div>
