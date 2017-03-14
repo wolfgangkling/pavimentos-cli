@@ -169,6 +169,17 @@
   margin-bottom: $form-group-margin-bottom;
 }
 
+@media (max-width: 600px) {
+  .form-group {
+    height: 40px;
+  }
+}
+
+@media (min-width: 600px) {
+  .form-group {
+    height: 15px;
+  }
+}
 
 // Checkboxes and radios
 //

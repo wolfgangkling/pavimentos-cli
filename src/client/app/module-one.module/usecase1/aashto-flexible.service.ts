@@ -5,7 +5,7 @@ import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Rx';
 import { Pavimento } from './pavimento.model';
 
-import { roundDecimal } from '../../util/util.math';
+import { roundDecimal } from '../../utils/math.util';
 
 @Injectable()
 export class AashtoFlexibleService {
@@ -44,7 +44,7 @@ export class AashtoFlexibleService {
         2.32 * Math.log10(Mr / 0.07) - 8.07, 3);
     }
     if (logW18_objetivo == log_obtenido) {
-      pavimento.numestruc = SN_1;
+      pavimento.numestruc = roundDecimal(SN_1,2);
     }
     else {
       pavimento.numestruc = null;

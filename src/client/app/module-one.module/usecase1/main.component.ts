@@ -23,31 +23,38 @@ export class MainComponent implements OnInit {
     constructor(
         private _fb: FormBuilder,
         private aashtoFlexibleService: AashtoFlexibleService,
-    ){ }
+    ) { }
 
     ngOnInit() {
+        //Initialize form controls
         this.myForm = this._fb.group({
             ejesequiv: ['', [Validators.required, CustomValidators.range([0, 10000000])]],
             confiabdiseno: ['', [Validators.required]],
             errestandar: ['', [Validators.required, CustomValidators.range([0, 1])]],
-            modresili: ['', [Validators.required, CustomValidators.range([0, 1000])]],
+            modresili: ['', [Validators.required, CustomValidators.min(0)]],
             servicini: ['', [Validators.required, CustomValidators.range([0, 5])]],
             servicfin: ['', [Validators.required, CustomValidators.range([0, 5])]],
-            numestruc: ['', [Validators.required, CustomValidators.min(0)]],
+            numestruc: [],
         });
         this.confiabDisenoOptions = this.getConfiabDisenoOptions();
     }
 
     calcular(myForm: FormGroup) {
+
         console.log('calcular()');
-        
-        let pavimento = this.formToPavimento(myForm);
-        console.log('Pavimento frm: ' + JSON.stringify(pavimento));  
+        if (myForm.valid) {
 
-        this.aashtoFlexibleService.calcular(pavimento).subscribe(data => pavimento = data);
+            let pavimento = this.formToPavimento(myForm);
+            console.log('Pavimento frm: ' + JSON.stringify(pavimento));
 
-        this.fillFormWithPavimento(pavimento);
-        console.log('Pavimento res: ' + JSON.stringify(pavimento)); 
+            this.aashtoFlexibleService.calcular(pavimento).subscribe(data => pavimento = data);
+
+            this.fillFormWithPavimento(pavimento);
+            console.log('Pavimento res: ' + JSON.stringify(pavimento));
+        }
+        else {
+            console.log('Form not valid');
+        }
     }
 
     private formToPavimento(myForm: FormGroup): Pavimento {
