@@ -16,29 +16,37 @@
     </div>
     <div class="row">
         <form [formGroup]="myForm" novalidate (ngSubmit)="calcular(myForm)">
-            <div class="form-group">
-                <label for="id_ejesequiv" class="col-sm-3 form-control-label">Ejes equivalentes en el carril de
-                    diseño</label>
-                <div class="col-sm-6">
-                    <div class="input-group">
+            <div class="row">
+                <div class="col-xl-3">
+                    <label for="id_ejesequiv" class="form-control-label">Ejes equivalentes en el carril de
+                    diseño
+                    </label>
+                </div>
+                <div class="col-xl-6">
+                    <div class="form-group input-group">
                         <span class="input-group-addon">N</span>
-                        <input type="text" formControlName="ejesequiv" class="form-control" id="id_ejesequiv" placeholder="Ejes equivalentes a ejes simples de 8.2 t" (change)="calcular(myForm)">
+                        <input type="text" formControlName="ejesequiv" class="form-control" id="id_ejesequiv" placeholder="Ejes equivalentes a ejes simples de 8.2 t"
+                            (change)="calcular(myForm)">
                     </div>
                     <small *ngIf="myForm.dirty && (!myForm.controls.ejesequiv.valid)" class="text-danger">
                             'El N deben ser > 0 y < 10.000.000'
-                        </small>
+                    </small>
                 </div>
-                <div class="col-sm-3">
-                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ejesequiv_modal">Ayuda</button>
+                <div class="col-xl-3">
+                    <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ejesequiv_modal">
+                        Ayuda               
+                    </button>
                 </div>
             </div>
-            <div class="form-group">&nbsp;</div>
-            <div class="form-group">
-                <label for="id_confiabdiseno" class="col-sm-3 form-control-label">Confiabilidad del diseño</label>
-                <div class="col-sm-6">
-                    <div class="input-group" [ngStyle]="{'height': '38px'}">
+            <div class="row">
+                <div class="col-xl-3">
+                    <label for="id_confiabdiseno" class="form-control-label">Confiabilidad del diseño</label>
+                </div>
+                <div class="col-xl-6">
+                    <div class="form-group input-group" [ngStyle]="{'height': '38px'}">
                         <span class="input-group-addon">R</span>
-                        <select class="form-control form-control-success" formControlName="confiabdiseno" id="id_confiabdiseno"  (change)="calcular(myForm)" [ngStyle]="{'height':'38px'}">
+                        <select class="form-control form-control-success" formControlName="confiabdiseno" id="id_confiabdiseno" (change)="calcular(myForm)"
+                            [ngStyle]="{'height':'38px'}">
                             <option value="">Seleccione un R</option>
                             <option *ngFor="let confiabdiseno of confiabDisenoOptions" [value]="confiabdiseno">{{confiabdiseno}}</option>
                         </select>
@@ -48,16 +56,17 @@
                     Es necesario seleccionar un R
                     </small>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-xl-3">
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confiabdiseno_modal">Ayuda
                     </button>
                 </div>
             </div>
-            <div class="form-group">&nbsp;</div>
-            <div class="form-group">
-                <label for="id_errestandar" class="col-sm-3 form-control-label">Error estándar combinado</label>
-                <div class="col-sm-6">
-                    <div class="input-group">
+            <div class="row">
+                <div class="col-xl-3">
+                    <label for="id_errestandar" class="form-control-label">Error estándar combinado</label>
+                </div>
+                <div class="col-xl-6">
+                    <div class="form-group input-group">
                         <span class="input-group-addon">So</span>
                         <input type="text" formControlName="errestandar" class="form-control" id="id_errestandar" (change)="calcular(myForm)">
                     </div>
@@ -65,16 +74,17 @@
                         'El So debe ser > 0 y < 1'
                     </small>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-xl-3">
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#errestandar_modal">Ayuda
                     </button>
                 </div>
             </div>
-            <div class="form-group">&nbsp;</div>
-            <div class="form-group">
-                <label for="id_modresili" class="col-sm-3 form-control-label">Módulo resiliente de subrasante</label>
-                <div class="col-sm-6">
-                    <div class="input-group">
+            <div class="row">
+                <div class="col-xl-3">
+                    <label for="id_modresili" class="form-control-label">Módulo resiliente de subrasante</label>
+                </div>    
+                <div class="col-xl-6">
+                    <div class="form-group input-group">
                         <span class="input-group-addon">Mr</span>
                         <input type="text" formControlName="modresili" class="form-control" id="id_modresili" (change)="calcular(myForm)">
                         <span class="input-group-addon">MPa</span>
@@ -83,16 +93,17 @@
                         'El Mr debe ser > 0'
                     </small>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-xl-3">
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modresili_modal">Ayuda
                     </button>
                 </div>
             </div>
-            <div class="form-group">&nbsp;</div>
-            <div class="form-group">
-                <label for="id_servicini" class="col-sm-3 form-control-label">Serviciabilidad inicial</label>
-                <div class="col-sm-6">
-                    <div class="input-group">
+            <div class="row">
+                <div class="col-xl-3">
+                    <label for="id_servicini" class="form-control-label">Serviciabilidad inicial</label>
+                </div>
+                <div class="col-xl-6">
+                    <div class="form-group input-group">
                         <span class="input-group-addon">Po</span>
                         <input type="text" formControlName="servicini" class="form-control" id="id_servicini" (change)="calcular(myForm)">
                     </div>
@@ -105,11 +116,12 @@
                     </button>
                 </div>
             </div>
-            <div class="form-group">&nbsp;</div>
-            <div class="form-group">
-                <label for="id_servicfin" class="col-sm-3 form-control-label">Serviciabilidad final</label>
-                <div class="col-sm-6">
-                    <div class="input-group">
+            <div class="row">
+                <div class="col-xl-3">
+                    <label for="id_servicfin" class="form-control-label">Serviciabilidad final</label>
+                </div>
+                <div class="col-xl-6">
+                    <div class="form-group input-group">
                         <span class="input-group-addon">Pt</span>
                         <input type="text" formControlName="servicfin" class="form-control" id="id_servicfin" (change)="calcular(myForm)">
                     </div>
@@ -117,22 +129,23 @@
                         'El Pt debe ser > 0 y < 5'
                     </small>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-xl-3">
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#servicfin_modal">Ayuda
                     </button>
                 </div>
             </div>
-            <div class="form-group">&nbsp;</div>
-            <div class="form-group">
-                <label for="id_numestruc" class="col-sm-3 form-control-label">Número estructural requerido</label>
-                <div class="col-sm-6">
-                    <div class="input-group">
+            <div class="row">
+                <div class="col-xl-3">
+                    <label for="id_numestruc" class="form-control-label">Número estructural requerido</label>
+                </div>
+                <div class="col-xl-6">
+                    <div class="form-group input-group">
                         <span class="input-group-addon">SNreq</span>
                         <input type="text" readonly formControlName="numestruc" class="form-control" id="id_numestruc" (change)="calcular(myForm)">
                         <span class="input-group-addon">pulg</span>
                     </div>
                 </div>
-                <div class="col-sm-3">
+                <div class="col-xl-3">
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modresili_modal">Ayuda
                     </button>
                 </div>
