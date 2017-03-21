@@ -23,10 +23,9 @@
                     </label>
                 </div>
                 <div class="col-xl-6">
-                    <div class="form-group input-group">
+                    <div class="form-group input-group form-horizontal">
                         <span class="input-group-addon">N</span>
-                        <input type="text" formControlName="ejesequiv" class="form-control" id="id_ejesequiv" placeholder="Ejes equivalentes a ejes simples de 8.2 t"
-                            (change)="calcular(myForm)">
+                        <input type="text" formControlName="ejesequiv" class="form-control" id="id_ejesequiv" placeholder="Ejes equivalentes a ejes simples de 8.2 t" (change)="onChangeAnyField()">
                     </div>
                     <small *ngIf="myForm.dirty && (!myForm.controls.ejesequiv.valid)" class="text-danger">
                             'El N deben ser > 0 y < 10.000.000'
@@ -45,10 +44,10 @@
                 <div class="col-xl-6">
                     <div class="form-group input-group" [ngStyle]="{'height': '38px'}">
                         <span class="input-group-addon">R</span>
-                        <select class="form-control form-control-success" formControlName="confiabdiseno" id="id_confiabdiseno" (change)="calcular(myForm)"
+                        <select class="form-control form-control-success" formControlName="confiabdiseno" id="id_confiabdiseno" (ngModelChange)="onChangeConfiabilidadDiseno($event)"
                             [ngStyle]="{'height':'38px'}">
                             <option value="">Seleccione un R</option>
-                            <option *ngFor="let confiabdiseno of confiabDisenoOptions" [value]="confiabdiseno">{{confiabdiseno}}</option>
+                            <option *ngFor="let confiabdisenoOpt of confiabDisenoOptions" [value]="confiabdisenoOpt">{{confiabdisenoOpt}}</option>
                         </select>
                         <span class="input-group-addon">%</span>
                     </div>
@@ -68,7 +67,8 @@
                 <div class="col-xl-6">
                     <div class="form-group input-group">
                         <span class="input-group-addon">So</span>
-                        <input type="text" formControlName="errestandar" class="form-control" id="id_errestandar" (change)="calcular(myForm)">
+                        <input type="text" formControlName="errestandar" class="form-control" id="id_errestandar"
+                        (change)="onChangeAnyField()">
                     </div>
                     <small *ngIf="myForm.dirty && (!myForm.controls.errestandar.valid)" class="text-danger">
                         'El So debe ser > 0 y < 1'
@@ -86,7 +86,8 @@
                 <div class="col-xl-6">
                     <div class="form-group input-group">
                         <span class="input-group-addon">Mr</span>
-                        <input type="text" formControlName="modresili" class="form-control" id="id_modresili" (change)="calcular(myForm)">
+                        <input type="text" formControlName="modresili" class="form-control" id="id_modresili"
+                        (change)="onChangeAnyField()">
                         <span class="input-group-addon">MPa</span>
                     </div>
                     <small *ngIf="myForm.dirty && (!myForm.controls.modresili.valid)" class="text-danger">
@@ -105,7 +106,8 @@
                 <div class="col-xl-6">
                     <div class="form-group input-group">
                         <span class="input-group-addon">Po</span>
-                        <input type="text" formControlName="servicini" class="form-control" id="id_servicini" (change)="calcular(myForm)">
+                        <input type="text" formControlName="servicini" class="form-control" id="id_servicini"
+                        (change)="onChangeAnyField()">
                     </div>
                     <small *ngIf="myForm.dirty && (!myForm.controls.servicini.valid)" class="text-danger">
                         'El Po debe ser > 0 y < 5'
@@ -123,7 +125,8 @@
                 <div class="col-xl-6">
                     <div class="form-group input-group">
                         <span class="input-group-addon">Pt</span>
-                        <input type="text" formControlName="servicfin" class="form-control" id="id_servicfin" (change)="calcular(myForm)">
+                        <input type="text" formControlName="servicfin" class="form-control" id="id_servicfin"
+                        (change)="onChangeAnyField()">
                     </div>
                     <small *ngIf="myForm.dirty && (!myForm.controls.servicfin.valid)" class="text-danger">
                         'El Pt debe ser > 0 y < 5'
@@ -141,7 +144,7 @@
                 <div class="col-xl-6">
                     <div class="form-group input-group">
                         <span class="input-group-addon">SNreq</span>
-                        <input type="text" readonly formControlName="numestruc" class="form-control" id="id_numestruc" (change)="calcular(myForm)">
+                        <input type="text" readonly formControlName="numestruc" class="form-control" id="id_numestruc">
                         <span class="input-group-addon">pulg</span>
                     </div>
                 </div>
