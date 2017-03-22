@@ -38,7 +38,7 @@ export class MainComponent implements OnInit {
             modresili: ['', [Validators.required, CustomValidators.gt(0)]],
             servicini: ['', [Validators.required, CustomValidators.range([0, 5])]],
             servicfin: ['', [Validators.required, CustomValidators.range([0, 5])]],
-            numestruc: [],
+            numestruc: [''],
         });
 
         //Set all validation messages
@@ -67,7 +67,7 @@ export class MainComponent implements OnInit {
                 'range': 'El Pt debe ser un valor numérico > 0 y < 5',
             }, 
             'numestruc': {
-                'required': 'Los valores ingresados no son validos y no arrojaron ningun resultado', 
+                'invalid': 'Los valores ingresados no son validos y no arrojaron ningun resultado', 
             },            
         }
 
@@ -95,6 +95,8 @@ export class MainComponent implements OnInit {
         this.myForm.controls['servicfin'].setValue(pavimento.servicfin);
         this.myForm.controls['numestruc'].setValue(pavimento.numestruc);
 
+        this.calcular(this.myForm);
+        //END Delete .. just for testing purposes
     }
 
     //Sets the correct error message to the this.errorMessages['fieldName'] 
@@ -103,10 +105,9 @@ export class MainComponent implements OnInit {
         for (var field in this.validationMessages) {
 
             const control = this.myForm.get(field);
-            if (control && control.dirty && !control.valid) {
+            if (!control.valid) {
                 const messages = this.validationMessages[field];
                 for (const key in control.errors) {
-                    console.log('validation keys: ' + key);
                     this.errorMessages[field] = messages[key] + ' ';
                 }
             }
@@ -115,7 +116,15 @@ export class MainComponent implements OnInit {
     }
 
     onChangeAnyField() {
+        //Set numestruc control to no errors
+        this.myForm.controls['numestruc'].setErrors(null, true);
         this.calcular(this.myForm);
+        if(this.myForm.value.numestruc == null){
+            console.log('this.myForm.value.numestruc == null');
+            //Raise error to numestruc control
+            this.myForm.controls['numestruc'].setErrors({invalid: 'invalid'}, true);
+            this.setErrorMessagesToForm();    
+        }
     }
 
     //This function is necessary as workaround because (change) does not 

@@ -144,10 +144,10 @@
                         <input type="text" readonly formControlName="numestruc" class="form-control" id="id_numestruc">
                         <span class="input-group-addon">pulg</span>
                     </div>
+                    <p [hidden]="(!myForm.dirty) || myForm.controls.numestruc.valid" class="small text-danger">
+                        {{ errorMessages.numestruc }}
+                    </p>
                 </div>
-                <p [hidden]="(!myForm.dirty) || myForm.controls.numestruc.valid" class="small text-danger">
-                    {{ errorMessages.numestruc }}
-                </p>
                 <div class="col-xl-3">
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modresili_modal">Ayuda
                     </button>
