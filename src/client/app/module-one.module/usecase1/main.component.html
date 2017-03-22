@@ -27,9 +27,9 @@
                         <span class="input-group-addon">N</span>
                         <input type="text" formControlName="ejesequiv" class="form-control" id="id_ejesequiv" placeholder="Ejes equivalentes a ejes simples de 8.2 t" (change)="onChangeAnyField()">
                     </div>
-                    <small *ngIf="myForm.dirty && (!myForm.controls.ejesequiv.valid)" class="text-danger">
+                    <p [hidden]="(!myForm.dirty) || myForm.controls.ejesequiv.valid" class="small text-danger">
                             'El N deben ser > 0 y < 10.000.000'
-                    </small>
+                    </p>
                 </div>
                 <div class="col-xl-3">
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#ejesequiv_modal">
@@ -109,9 +109,9 @@
                         <input type="text" formControlName="servicini" class="form-control" id="id_servicini"
                         (change)="onChangeAnyField()">
                     </div>
-                    <small *ngIf="myForm.dirty && (!myForm.controls.servicini.valid)" class="text-danger">
+                    <p [hidden]="(!myForm.dirty) || myForm.controls.servicini.valid" class="small text-danger">
                         'El Po debe ser > 0 y < 5'
-                    </small>
+                    </p>
                 </div>
                 <div class="col-sm-3">
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#servicini_modal">Ayuda
