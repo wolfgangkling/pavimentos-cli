@@ -25,10 +25,11 @@
                 <div class="col-xl-6">
                     <div class="form-group input-group form-horizontal">
                         <span class="input-group-addon">N</span>
-                        <input type="text" formControlName="ejesequiv" class="form-control" id="id_ejesequiv" placeholder="Ejes equivalentes a ejes simples de 8.2 t" (change)="onChangeAnyField()">
+                        <input type="text" formControlName="ejesequiv" class="form-control" id="id_ejesequiv" placeholder="Ejes equivalentes a ejes simples de 8.2 t"
+                            (change)="onChangeAnyField()">
                     </div>
                     <p [hidden]="(!myForm.dirty) || myForm.controls.ejesequiv.valid" class="small text-danger">
-                            'El N deben ser > 0 y < 10.000.000'
+                        {{ errorMessages.ejesequiv }}
                     </p>
                 </div>
                 <div class="col-xl-3">
@@ -51,9 +52,9 @@
                         </select>
                         <span class="input-group-addon">%</span>
                     </div>
-                    <small *ngIf="myForm.dirty && (!myForm.controls.confiabdiseno.valid)" class="text-danger">
-                    Es necesario seleccionar un R
-                    </small>
+                    <p [hidden]="(!myForm.dirty) || myForm.controls.confiabdiseno.valid" class="small text-danger">
+                        {{ errorMessages.confiabdiseno }}
+                    </p>
                 </div>
                 <div class="col-xl-3">
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#confiabdiseno_modal">Ayuda
@@ -67,12 +68,11 @@
                 <div class="col-xl-6">
                     <div class="form-group input-group">
                         <span class="input-group-addon">So</span>
-                        <input type="text" formControlName="errestandar" class="form-control" id="id_errestandar"
-                        (change)="onChangeAnyField()">
+                        <input type="text" formControlName="errestandar" class="form-control" id="id_errestandar" (change)="onChangeAnyField()">
                     </div>
-                    <small *ngIf="myForm.dirty && (!myForm.controls.errestandar.valid)" class="text-danger">
-                        'El So debe ser > 0 y < 1'
-                    </small>
+                    <p [hidden]="(!myForm.dirty) || myForm.controls.errestandar.valid" class="small text-danger">
+                        {{ errorMessages.errestandar }}
+                    </p>
                 </div>
                 <div class="col-xl-3">
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#errestandar_modal">Ayuda
@@ -82,17 +82,16 @@
             <div class="row">
                 <div class="col-xl-3">
                     <label for="id_modresili" class="form-control-label">Módulo resiliente de subrasante</label>
-                </div>    
+                </div>
                 <div class="col-xl-6">
                     <div class="form-group input-group">
                         <span class="input-group-addon">Mr</span>
-                        <input type="text" formControlName="modresili" class="form-control" id="id_modresili"
-                        (change)="onChangeAnyField()">
+                        <input type="text" formControlName="modresili" class="form-control" id="id_modresili" (change)="onChangeAnyField()">
                         <span class="input-group-addon">MPa</span>
                     </div>
-                    <small *ngIf="myForm.dirty && (!myForm.controls.modresili.valid)" class="text-danger">
-                        'El Mr debe ser > 0'
-                    </small>
+                    <p [hidden]="(!myForm.dirty) || myForm.controls.modresili.valid" class="small text-danger">
+                        {{ errorMessages.modresili }}
+                    </p>
                 </div>
                 <div class="col-xl-3">
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modresili_modal">Ayuda
@@ -106,11 +105,10 @@
                 <div class="col-xl-6">
                     <div class="form-group input-group">
                         <span class="input-group-addon">Po</span>
-                        <input type="text" formControlName="servicini" class="form-control" id="id_servicini"
-                        (change)="onChangeAnyField()">
+                        <input type="text" formControlName="servicini" class="form-control" id="id_servicini" (change)="onChangeAnyField()">
                     </div>
                     <p [hidden]="(!myForm.dirty) || myForm.controls.servicini.valid" class="small text-danger">
-                        'El Po debe ser > 0 y < 5'
+                        {{ errorMessages.servicini }}
                     </p>
                 </div>
                 <div class="col-sm-3">
@@ -125,12 +123,11 @@
                 <div class="col-xl-6">
                     <div class="form-group input-group">
                         <span class="input-group-addon">Pt</span>
-                        <input type="text" formControlName="servicfin" class="form-control" id="id_servicfin"
-                        (change)="onChangeAnyField()">
+                        <input type="text" formControlName="servicfin" class="form-control" id="id_servicfin" (change)="onChangeAnyField()">
                     </div>
-                    <small *ngIf="myForm.dirty && (!myForm.controls.servicfin.valid)" class="text-danger">
-                        'El Pt debe ser > 0 y < 5'
-                    </small>
+                    <p [hidden]="(!myForm.dirty) || myForm.controls.servicfin.valid" class="small text-danger">
+                        {{ errorMessages.servicfin }}
+                    </p>
                 </div>
                 <div class="col-xl-3">
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#servicfin_modal">Ayuda
@@ -148,6 +145,9 @@
                         <span class="input-group-addon">pulg</span>
                     </div>
                 </div>
+                <p [hidden]="(!myForm.dirty) || myForm.controls.numestruc.valid" class="small text-danger">
+                    {{ errorMessages.numestruc }}
+                </p>
                 <div class="col-xl-3">
                     <button type="button" class="btn btn-info" data-toggle="modal" data-target="#modresili_modal">Ayuda
                     </button>
