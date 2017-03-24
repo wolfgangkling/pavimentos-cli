@@ -1,9 +1,14 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+//Angular imports
+import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+//Angular addons imports
 import { CustomValidators } from 'ng2-validation';
+//Business imports
 import { Pavimento } from './pavimento.model';
-
 import { AashtoFlexibleService } from './aashto-flexible.service';
+
+import { Overlay } from 'angular2-modal';
+import { Modal } from 'angular2-modal/plugins/bootstrap';
 
 @Component({
     moduleId: module.id,
@@ -16,7 +21,7 @@ import { AashtoFlexibleService } from './aashto-flexible.service';
 })
 
 export class MainComponent implements OnInit {
-    
+
     myForm: FormGroup;
     validationMessages: { [key: string]: { [key: string]: string } } = {};
     errorMessages: { [key: string]: string } = {};
@@ -27,7 +32,12 @@ export class MainComponent implements OnInit {
     constructor(
         private _fb: FormBuilder,
         private aashtoFlexibleService: AashtoFlexibleService,
-    ) { }
+        overlay: Overlay,
+        vcRef: ViewContainerRef,
+        public modal: Modal
+    ) { 
+        overlay.defaultViewContainer = vcRef;
+    }
 
     ngOnInit() {
         //Initialize form controls
@@ -44,31 +54,31 @@ export class MainComponent implements OnInit {
         //Set all validation messages
         this.validationMessages = {
             'ejesequiv': {
-                'required': 'Debe ingresar el N', 
+                'required': 'Debe ingresar el N',
                 'range': 'El N deben ser un valor numérico > 0 y < 10.000.000',
             },
             'confiabdiseno': {
-                'required': 'Es necesario seleccionar un R', 
+                'required': 'Es necesario seleccionar un R',
             },
             'errestandar': {
-                'required': 'Debe ingresar el So', 
+                'required': 'Debe ingresar el So',
                 'range': 'El So debe ser un valor numérico > 0 y < 1',
-            },            
+            },
             'modresili': {
-                'required': 'Debe ingresar el Mr', 
+                'required': 'Debe ingresar el Mr',
                 'gt': 'El Mr debe ser un valor numérico > 0',
-            },            
+            },
             'servicini': {
-                'required': 'Debe ingresar el Po', 
+                'required': 'Debe ingresar el Po',
                 'range': 'El Po debe ser un valor numérico > 0 y < 5',
-            }, 
+            },
             'servicfin': {
-                'required': 'Debe ingresar el Pt', 
+                'required': 'Debe ingresar el Pt',
                 'range': 'El Pt debe ser un valor numérico > 0 y < 5',
-            }, 
+            },
             'numestruc': {
-                'invalid': 'Los valores ingresados no son validos y no arrojaron ningun resultado', 
-            },            
+                'invalid': 'Los valores ingresados no son validos y no arrojaron ningun resultado',
+            },
         }
 
         //Listens to form to set correct error messages when any field changes
@@ -95,7 +105,7 @@ export class MainComponent implements OnInit {
         this.myForm.controls['servicfin'].setValue(pavimento.servicfin);
         this.myForm.controls['numestruc'].setValue(pavimento.numestruc);
 
-        this.calcular(this.myForm);
+        this.calcularNumeroEstructural(this.myForm);
         //END Delete .. just for testing purposes
     }
 
@@ -116,15 +126,24 @@ export class MainComponent implements OnInit {
     }
 
     onChangeAnyField() {
+        this.preValidations();
+        this.calcularNumeroEstructural(this.myForm);
+        this.posValidations();
+    }
+
+    preValidations() {
         //Set numestruc control to no errors
         this.myForm.controls['numestruc'].setErrors(null, true);
-        this.calcular(this.myForm);
-        if(this.myForm.value.numestruc == null){
+    }
+
+    posValidations() {
+        if (this.myForm.value.numestruc == null) {
             console.log('this.myForm.value.numestruc == null');
             //Raise error to numestruc control
-            this.myForm.controls['numestruc'].setErrors({invalid: 'invalid'}, true);
-            this.setErrorMessagesToForm();    
+            this.myForm.controls['numestruc'].setErrors({ invalid: 'invalid' }, true);
+            this.setErrorMessagesToForm();
         }
+
     }
 
     //This function is necessary as workaround because (change) does not 
@@ -147,7 +166,7 @@ export class MainComponent implements OnInit {
         }
     }
 
-    calcular(myForm: FormGroup) {
+    calcularNumeroEstructural(myForm: FormGroup) {
         console.log('calcular()');
 
         if (myForm.valid) {
@@ -185,4 +204,22 @@ export class MainComponent implements OnInit {
         return this.aashtoFlexibleService.confiabDisenoOptions();
     }
 
+    openModalEjesEquiv() {
+        this.modal.alert()
+            .size('lg')
+            .showClose(true)
+            .title('A simple Alert style modal window')
+            .body(`
+            <h4>Alert is a classic (title/body/footer) 1 button modal window that 
+            does not block.</h4>
+            <b>Configuration:</b>
+            <ul>
+                <li>Non blocking (click anywhere outside to dismiss)</li>
+                <li>Size large</li>
+                <li>Dismissed with default keyboard key (ESC)</li>
+                <li>Close wth button click</li>
+                <li>HTML content</li>
+            </ul>`)
+            .open();
+    }
 }

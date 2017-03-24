@@ -13,6 +13,10 @@ import { HttpModule }    from '@angular/http';
 import { AlertModule } from 'ng2-bootstrap';
 import { DatepickerModule} from 'ng2-bootstrap';
 
+import { ModalModule } from 'angular2-modal';
+import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
+
+
 @NgModule({
     imports: [
         RouterModule,
@@ -23,10 +27,11 @@ import { DatepickerModule} from 'ng2-bootstrap';
         ReactiveFormsModule,
         HttpModule,
         CustomFormsModule,
+        ModalModule.forRoot(),
+        BootstrapModalModule
     ],
     declarations: [
         MainComponent, 
-        //AgreementDetailComponent
     ],
     exports: [MainComponent],
 })

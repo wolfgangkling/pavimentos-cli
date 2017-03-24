@@ -343,13 +343,14 @@ export class SeedConfig {
       'app/*': '/app/*',
       // For test config
       'dist/dev/*': '/base/dist/dev/*',
-      '*': 'node_modules/*'
+      '*': 'node_modules/*',
+      'angular2-modal/plugins/bootstrap': 'node_modules/angular2-modal/bundles/angular2-modal.bootstrap.umd.js'
     },
     packages: {
       rxjs: { defaultExtension: 'js' }
     },
     map : {
-      'ng2-validation': 'ng2-validation/bundles/ng2-validation.umd.js'
+      'ng2-validation': 'ng2-validation/bundles/ng2-validation.umd.js',
     }
   };
 
