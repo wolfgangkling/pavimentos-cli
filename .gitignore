@@ -41,7 +41,6 @@ typings
 *.iml
 
 /tools/**/*.js
-dist/dev
 dist/tmp
 dev
 docs
