@@ -4,12 +4,19 @@ sudo rm ng2-bootstrap.js
 sudo rm mydatepicker.js
 sudo rm -rf components
 sudo rm ng2-validation.js
+sudo rm angular2-modal.js
+sudo rm ./angular2-modal/plugins/bootstrap.js
 
 sudo ln -s ./ng2-bootstrap/ng2-bootstrap.js ng2-bootstrap.js
 sudo ln -s ./mydatepicker/bundles/mydatepicker.umd.js mydatepicker.js
 sudo ln -s ./ng2-bootstrap/components components
 sudo ln -s ./ng2-validation/bundles/ng2-validation.umd.js ng2-validation.js
+sudo ln -s ./angular2-modal/bundles/angular2-modal.umd.js angular2-modal.js
 
+cd ./angular2-modal/plugins
+sudo ln -s ../../angular2-modal/bundles/angular2-modal.bootstrap.umd.js bootstrap.js
+
+cd ../../
 sudo npm run build.prod
 
 cd ..
