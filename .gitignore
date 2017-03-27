@@ -1,6 +1,8 @@
 # Transpiled code
 *.js
 *.js.map
+!dist/prod/**
+!dist/dev/**
 
 # Logs
 logs
