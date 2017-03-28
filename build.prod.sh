@@ -20,6 +20,9 @@ sudo ln -s ../../angular2-modal/bundles/angular2-modal.bootstrap.umd.js bootstra
 
 cd ../../../
 cp ./src/client/app/shared/sidebar/sidebar.prod.html ./src/client/app/shared/sidebar/sidebar.html
-sudo npm run build.prod
+#sudo npm run build.prod
 cp ./src/client/app/shared/sidebar/sidebar.dev.html ./src/client/app/shared/sidebar/sidebar.html
-cd ..
+
+git add --all
+git commit -m "Commit de nueva versión para produccion"
+git push origin master
