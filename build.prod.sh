@@ -17,6 +17,7 @@ cd ./angular2-modal/plugins
 sudo ln -s ../../angular2-modal/bundles/angular2-modal.bootstrap.umd.js bootstrap.js
 
 cd ../../
+cp ./src/client/app/shared/sidebar/sidebar.prod.html ./src/client/app/shared/sidebar/sidebar.html
 sudo npm run build.prod
-
+cp ./src/client/app/shared/sidebar/sidebar.dev.html ./src/client/app/shared/sidebar/sidebar.html
 cd ..
