@@ -20,7 +20,7 @@ sudo ln -s ../../angular2-modal/bundles/angular2-modal.bootstrap.umd.js bootstra
 
 cd ../../../
 cp ./src/client/app/shared/sidebar/sidebar.prod.html ./src/client/app/shared/sidebar/sidebar.html
-#sudo npm run build.prod
+sudo npm run build.prod
 cp ./src/client/app/shared/sidebar/sidebar.dev.html ./src/client/app/shared/sidebar/sidebar.html
 
 git add --all
