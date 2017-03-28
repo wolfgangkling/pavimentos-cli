@@ -1,3 +1,5 @@
+set -x
+
 cd node_modules
 
 sudo rm ng2-bootstrap.js
@@ -16,7 +18,7 @@ sudo ln -s ./angular2-modal/bundles/angular2-modal.umd.js angular2-modal.js
 cd ./angular2-modal/plugins
 sudo ln -s ../../angular2-modal/bundles/angular2-modal.bootstrap.umd.js bootstrap.js
 
-cd ../../
+cd ../../../
 cp ./src/client/app/shared/sidebar/sidebar.prod.html ./src/client/app/shared/sidebar/sidebar.html
 sudo npm run build.prod
 cp ./src/client/app/shared/sidebar/sidebar.dev.html ./src/client/app/shared/sidebar/sidebar.html
