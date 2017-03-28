@@ -4,12 +4,12 @@ import { LoginRoutes } from './login/index';
 import { SignupRoutes } from './signup/index';
 import { DashboardRoutes } from './dashboard/index';
 
-import { LoginComponent } from './login/index';
+//import { LoginComponent } from './login/index';
 
 //Imports all other modules Routes
 export const appRoutes: Routes = [
 	...LoginRoutes,
 	...SignupRoutes,
 	...DashboardRoutes,
-	{ path: '**', component: LoginComponent },
+	{ path: '**', redirectTo: 'dashboard' },
 ];

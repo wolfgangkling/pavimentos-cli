@@ -4,6 +4,10 @@ import { MainComponent } from './main.component';
 
 
 export const UseCase1Routes: Route[] = [
+  	{
+    	path: '',
+    	component: MainComponent,
+  	},
     {
         path: 'module-one-usecase1',
         component: MainComponent
