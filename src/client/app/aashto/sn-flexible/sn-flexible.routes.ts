@@ -3,13 +3,13 @@ import { Route } from '@angular/router';
 import { MainComponent } from './main.component';
 
 
-export const UseCase1Routes: Route[] = [
+export const SNFlexibleRoutes: Route[] = [
   	{
     	path: '',
     	component: MainComponent,
   	},
     {
-        path: 'module-one-usecase1',
+        path: 'sn-flexible',
         component: MainComponent
     },
 ];

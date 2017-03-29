@@ -36,6 +36,6 @@ import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
     exports: [MainComponent],
 })
 
-export class Usecase1Module {
+export class SNFlexibleModule {
 
 }

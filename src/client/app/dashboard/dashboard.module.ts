@@ -18,9 +18,9 @@ import { DashboardComponent } from './dashboard.component';
 import {TopNavComponent} from '../shared/index';
 import {SidebarComponent} from '../shared/index';
 
-import {Usecase1Module as Mod1Usecase1Module} from '../module-one.module/usecase1/usecase1.module';
-import {Usecase2Module as Mod1Usecase2Module} from '../module-one.module/usecase2/usecase2.module';
-import {Usecase1Module as Mod2Usecase1Module} from '../module-two.module/usecase1/usecase1.module';
+import {SNFlexibleModule} from '../aashto/sn-flexible/sn-flexible.module';
+import {Usecase2Module as Mod1Usecase2Module} from '../aashto/usecase2/usecase2.module';
+import {UseCase1Module as Mod2Usecase1Module} from '../module-two.module/usecase1/usecase1.module';
 
 
 @NgModule({
@@ -37,7 +37,7 @@ import {Usecase1Module as Mod2Usecase1Module} from '../module-two.module/usecase
     	BSComponentModule,
         BSElementModule,
         BlankPageModule,
-        Mod1Usecase1Module,
+        SNFlexibleModule,
         Mod1Usecase2Module,
         Mod2Usecase1Module,
     ],

@@ -16,6 +16,6 @@ import { AlertModule } from 'ng2-bootstrap';
     exports: [MainComponent],
 })
 
-export class Usecase1Module {
+export class UseCase1Module {
 
 }
