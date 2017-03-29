@@ -28,6 +28,6 @@ git commit -m "Commit de nueva versión para produccion"
 git push origin master
 
 ssh -i "/Users/wolfgangkling/Dropbox/Personal/Pavimentos Sistema/aws/keys/pavimation.pem" ubuntu@ec2-52-27-46-52.us-west-2.compute.amazonaws.com
-#cd workspace 
+cd workspace 
 #sh update-prod.sh
 #exit
