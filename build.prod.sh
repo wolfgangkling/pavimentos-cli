@@ -32,7 +32,7 @@ git push origin master
 #sh update-prod.sh
 #exit
 
-ssh -i -t "/Users/wolfgangkling/Dropbox/Personal/Pavimentos Sistema/aws/keys/pavimation.pem" ubuntu@ec2-52-27-46-52.us-west-2.compute.amazonaws.com << thismachine
+ssh -t -i "/Users/wolfgangkling/Dropbox/Personal/Pavimentos Sistema/aws/keys/pavimation.pem" ubuntu@ec2-52-27-46-52.us-west-2.compute.amazonaws.com << thismachine
     cd workspace 
     sh update-prod.sh
 thismachine
