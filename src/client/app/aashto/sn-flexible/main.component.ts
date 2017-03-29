@@ -5,14 +5,16 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { CustomValidators } from 'ng2-validation';
 //Business imports
 import { Pavimento } from './pavimento.model';
-import { AashtoFlexibleService } from './aashto-flexible.service';
+import { AashtoFlexibleService } from './sn-flexible.service';
 
-import { Overlay } from 'angular2-modal';
-import { Modal } from 'angular2-modal/plugins/bootstrap';
+import { Overlay, overlayConfigFactory } from 'angular2-modal';
+import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
+import { EjesEquivalentesModalContext, EjesEquivalentesModal } from './ejesequiv.modal';
+
 
 @Component({
     moduleId: module.id,
-    selector: 'usecase-one-main-component',
+    selector: 'sn-flexible',
     templateUrl: './main.component.html',
     providers: [
         FormBuilder,
@@ -205,11 +207,14 @@ export class MainComponent implements OnInit {
     }
 
     openModalEjesEquiv() {
+        return this.modal.open(EjesEquivalentesModal,  overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
+        /*
         this.modal.alert()
             .size('lg')
             .showClose(true)
             .title('Ejes equivalentes en el carril de diseño')
             .body(``)
             .open();
+        */
     }
 }

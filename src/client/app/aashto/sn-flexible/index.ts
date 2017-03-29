@@ -3,3 +3,5 @@
  */
 export * from './main.component';
 export * from './sn-flexible.routes';
+export * from './ejesequiv.modal';
+

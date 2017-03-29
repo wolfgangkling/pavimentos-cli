@@ -14,6 +14,7 @@ import { SignupModule } from './signup/signup.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { SharedModule } from './shared/shared.module';
 
+
 @NgModule({
 	imports: [
 		BrowserModule,
@@ -29,8 +30,7 @@ import { SharedModule } from './shared/shared.module';
 		provide: APP_BASE_HREF,
 		useValue: '<%= APP_BASE %>'
 	}],
-	bootstrap: [AppComponent]
-
+	bootstrap: [AppComponent],
 })
 
 export class AppModule { }
