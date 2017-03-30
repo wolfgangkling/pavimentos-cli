@@ -24,7 +24,7 @@ export class EjesEquivalentesModal implements CloseGuard, ModalComponent<EjesEqu
   constructor(public dialog: DialogRef<EjesEquivalentesModalContext>) {
     this.context = dialog.context;
     this.wrongAnswer = true;
-    //dialog.setCloseGuard(this);
+    dialog.setCloseGuard(this);
   }
 
   onKeyUp(value: any) {
