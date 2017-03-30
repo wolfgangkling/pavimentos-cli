@@ -1,17 +1,32 @@
-<div class="container-fluid custom-modal-container">
-    <div class="row custom-modal-header">
-        <div class="col-sm-12">
-            <h1>A Custom modal design</h1>
+<div class="container-fluid">
+    <div class="row">
+        <div class="page-header col-lg-12" [ngStyle]="{'padding-top': '12px'}">
+            <h4>Ejes equivalentes en el carril de diseño</h4>
+            <hr>
         </div>
     </div>
-    <div class="row" [ngClass]="{'myclass' : shouldUseMyClass}">
-        <div class="col-xs-12">
-            <div class="jumbotron">
-                <h1>Do the math to quit:</h1>
-                <p class="lead">I received an injection of the number <strong>{{context.num1}}</strong> and the number <strong>{{context.num2}}</strong></p>
-                <span>What is the sum?</span>
-                <input class="form-control" type="text" #answer (keyup)="onKeyUp(answer.value)" autofocus>
+    <div class="row col-lg-12">
+        <p>El diseño AASHTO se basa en el número de ejes equivalentes a ejes simples de 8.2 t.</p>
+        <p>El cálculo se basa en los factores de conversión de ejes del Apéndice D de la Guía de Diseño AASHTO'93</p>
+    </div>
+    <form class="form-horizontal" role="form">
+        <div class="row">
+            <div class="col-lg-12">
+                <label for="ejesproy" class="control-label">Ingrese el valor de ejes proyectado aquí</label>
             </div>
         </div>
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="ejesproy">
+                </div>
+            </div>
+            <div class="col-lg-3">
+                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="auto" title="Próximamente">Calcular valor</button>
+            </div>
+        </div>
+    </form>
+    <div class="row col-lg-12">
+        <p></p>
     </div>
 </div>
