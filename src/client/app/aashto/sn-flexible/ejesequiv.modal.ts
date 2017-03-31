@@ -8,9 +8,6 @@ export class EjesEquivalentesModalContext extends BSModalContext {
   public num2: number;
 }
 
-/**
- * A Sample of how simple it is to create a new window, with its own injects.
- */
 @Component({
   moduleId: module.id,  
   selector: 'modal-content',
@@ -23,21 +20,22 @@ export class EjesEquivalentesModal implements CloseGuard, ModalComponent<EjesEqu
 
   constructor(public dialog: DialogRef<EjesEquivalentesModalContext>) {
     this.context = dialog.context;
-    this.wrongAnswer = true;
-    dialog.setCloseGuard(this);
+    //this.wrongAnswer = true;
+    //dialog.setCloseGuard(this);
   }
 
-  onKeyUp(value: any) {
-    this.wrongAnswer = value != 5;
-    this.dialog.close();
-  }
-
-
+  /*
   beforeDismiss(): boolean {
     return true;
   }
 
   beforeClose(): boolean {
-    return this.wrongAnswer;
+    return true;
+  }
+  */
+
+  cancelModal() {
+    console.log('Cancel Modal');
+    this.dialog.close();
   }
 }

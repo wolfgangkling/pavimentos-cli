@@ -16,17 +16,27 @@
             </div>
         </div>
         <div class="row">
-            <div class="col-lg-8">
+            <div class="col-xs-5">
                 <div class="form-group">
                     <input type="text" class="form-control" id="ejesproy">
                 </div>
             </div>
-            <div class="col-lg-3">
-                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="auto" title="Próximamente">Calcular valor</button>
+            <div class="col-xs-3">
+                <button type="button" class="btn btn-default" data-toggle="tooltip" data-placement="auto" title="Próximamente">Calcular</button>
             </div>
         </div>
     </form>
-    <div class="row col-lg-12">
+    <div class="row col-xs-13">
+        <div class="col-xs-6">
+            <button type="button" (click)="cancelModal()" class="btn btn-danger center-block">Cancelar</button>
+        </div>
+        <div class="col-xs-1">
+        </div>
+        <div class="col-xs-6">
+            <button type="button" class="btn btn-primary center-block">Aceptar</button>
+        </div>
+    </div>
+    <div class="row col-xs-12">
         <p></p>
     </div>
 </div>
