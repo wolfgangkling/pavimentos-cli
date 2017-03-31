@@ -50,13 +50,13 @@ export class EjesEquivalentesModal implements CloseGuard, ModalComponent<EjesEqu
       numestruc: null,
     }
 
-    this.messageService.sendEventObject(pavimento);
+    this.messageService.sendEventObject('ejesequiv', pavimento);
     this.dialog.close();
   }
 
   cancelModal() {
     console.log('Cancel Modal');
-    this.messageService.sendEventObject('ejesequiv CANCEL');
+    this.messageService.sendEventObject('ejesequiv', 'ejesequiv CANCEL');
     this.dialog.close();
   }
 }

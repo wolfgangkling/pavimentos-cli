@@ -45,7 +45,7 @@ export class MainComponent implements OnInit {
         private messageService: MessageService
     ) {
         overlay.defaultViewContainer = vcRef;
-        this.subscription = this.messageService.getEventObject().subscribe(eventObject => { console.log('Observing esjesequiv: ' + (<Pavimento>eventObject).ejesequiv)});
+        this.subscription = this.messageService.getEventObject('ejesequiv').subscribe(eventObject => { console.log('Observing esjesequiv: ' + (<Pavimento>eventObject).ejesequiv)});
     }
 
     ngOnInit() {

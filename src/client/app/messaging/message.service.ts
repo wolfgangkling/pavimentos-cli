@@ -4,17 +4,24 @@ import { Subject } from 'rxjs/Subject';
  
 @Injectable()
 export class MessageService {
-    private subject = new Subject<any>();
- 
-    sendEventObject<T>(eventObject: T) {
-        this.subject.next(eventObject);
+
+    private observables: {[key:string]: Subject<any>} = {};
+
+    sendEventObject<T>(eventEmitterId: string, eventObject: T) {
+        if(this.observables[eventEmitterId] == null){
+            this.observables[eventEmitterId] = new Subject<any>();;            
+        }        
+        this.observables[eventEmitterId].next(eventObject);       
     }
  
-    clearMessage() {
-        this.subject.next();
+    clearMessage(eventEmitterId: string) {
+        this.observables[eventEmitterId].next();
     }
  
-    getEventObject<T>(): Observable<T> {
-        return this.subject.asObservable();
+    getEventObject<T>(eventEmitterId: string): Observable<T> {
+        if(this.observables[eventEmitterId] == null){
+            this.observables[eventEmitterId] = new Subject<any>();;            
+        }
+        return this.observables[eventEmitterId].asObservable();
     }
 }
