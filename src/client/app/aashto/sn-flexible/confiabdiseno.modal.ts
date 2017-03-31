@@ -6,19 +6,19 @@ import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import { MessageService } from '../../messaging/message.service';
 import { Pavimento } from './pavimento.model';
 
-export class EjesEquivalentesModalContext extends BSModalContext {
+export class ConfiabilidadDisenoModalContext extends BSModalContext {
 }
 
 @Component({
   moduleId: module.id,
   selector: 'modal-content',
-  templateUrl: './ejesequiv.modal.html',
+  templateUrl: './confiabdiseno.modal.html',
 })
-export class EjesEquivalentesModal implements CloseGuard, ModalComponent<EjesEquivalentesModalContext> {
-  context: EjesEquivalentesModalContext;
+export class ConfiabilidadDisenoModal implements CloseGuard, ModalComponent<ConfiabilidadDisenoModalContext> {
+  context: ConfiabilidadDisenoModalContext;
  
   constructor(
-    public dialog: DialogRef<EjesEquivalentesModalContext>,
+    public dialog: DialogRef<ConfiabilidadDisenoModalContext>,
     private messageService: MessageService
   ) {
     this.context = dialog.context;

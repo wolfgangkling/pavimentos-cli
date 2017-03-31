@@ -9,7 +9,8 @@ import { AashtoFlexibleService } from './sn-flexible.service';
 
 import { Overlay, overlayConfigFactory } from 'angular2-modal';
 import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
-import { EjesEquivalentesModalContext, EjesEquivalentesModal } from './ejesequiv.modal';
+import { EjesEquivalentesModal, EjesEquivalentesModalContext } from './ejesequiv.modal';
+import { ConfiabilidadDisenoModal, ConfiabilidadDisenoModalContext } from './confiabdiseno.modal';
 
 import { MessageService } from '../../messaging/message.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -45,7 +46,7 @@ export class MainComponent implements OnInit {
         private messageService: MessageService
     ) {
         overlay.defaultViewContainer = vcRef;
-        this.subscription = this.messageService.getEventObject('ejesequiv').subscribe(eventObject => { console.log('Observing esjesequiv: ' + (<Pavimento>eventObject).ejesequiv)});
+        this.subscription = this.messageService.getEventObject('ejesequiv').subscribe(eventObject => { this.myForm.controls['ejesequiv'].setValue(<number>eventObject)});
     }
 
     ngOnInit() {
@@ -221,4 +222,9 @@ export class MainComponent implements OnInit {
     openModalEjesEquiv() {
         return this.modal.open(EjesEquivalentesModal, overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
     }
+
+    openModalConfiabDiseno() {
+        return this.modal.open(ConfiabilidadDisenoModal, overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
+    }
+
 }

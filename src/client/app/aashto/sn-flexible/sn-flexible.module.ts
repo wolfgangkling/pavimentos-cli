@@ -17,6 +17,7 @@ import { DatepickerModule } from 'ng2-bootstrap';
 import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { EjesEquivalentesModal } from './ejesequiv.modal';
+import { ConfiabilidadDisenoModal } from './confiabdiseno.modal';
 
 import { MessageService } from '../../messaging/message.service';
 
@@ -34,10 +35,10 @@ import { MessageService } from '../../messaging/message.service';
         BootstrapModalModule
     ],
     declarations: [
-        MainComponent, EjesEquivalentesModal
+        MainComponent, EjesEquivalentesModal, ConfiabilidadDisenoModal
     ],
     exports: [MainComponent],
-    entryComponents: [EjesEquivalentesModal],
+    entryComponents: [EjesEquivalentesModal, ConfiabilidadDisenoModal],
     providers: [
         MessageService
     ]
