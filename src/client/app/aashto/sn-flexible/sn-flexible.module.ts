@@ -18,6 +18,8 @@ import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { EjesEquivalentesModal } from './ejesequiv.modal';
 
+import { MessageService } from '../../messaging/message.service';
+
 @NgModule({
     imports: [
         RouterModule,
@@ -35,7 +37,10 @@ import { EjesEquivalentesModal } from './ejesequiv.modal';
         MainComponent, EjesEquivalentesModal
     ],
     exports: [MainComponent],
-    entryComponents: [EjesEquivalentesModal]
+    entryComponents: [EjesEquivalentesModal],
+    providers: [
+        MessageService
+    ]
 })
 
 export class SNFlexibleModule {

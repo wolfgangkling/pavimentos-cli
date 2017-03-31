@@ -11,6 +11,8 @@ import { Overlay, overlayConfigFactory } from 'angular2-modal';
 import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import { EjesEquivalentesModalContext, EjesEquivalentesModal } from './ejesequiv.modal';
 
+import { MessageService } from '../../messaging/message.service';
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     moduleId: module.id,
@@ -31,14 +33,19 @@ export class MainComponent implements OnInit {
     confiabDisenoOptions: string[];
     numestruc: Number = 0;
 
+    message: any;
+    subscription: Subscription;
+
     constructor(
         private _fb: FormBuilder,
         private aashtoFlexibleService: AashtoFlexibleService,
         overlay: Overlay,
         vcRef: ViewContainerRef,
-        public modal: Modal
-    ) { 
+        public modal: Modal,
+        private messageService: MessageService
+    ) {
         overlay.defaultViewContainer = vcRef;
+        this.subscription = this.messageService.getEventObject().subscribe(eventObject => { console.log('Observing esjesequiv: ' + (<Pavimento>eventObject).ejesequiv)});
     }
 
     ngOnInit() {
@@ -109,6 +116,11 @@ export class MainComponent implements OnInit {
 
         this.calcularNumeroEstructural(this.myForm);
         //END Delete .. just for testing purposes
+    }
+
+    ngOnDestroy() {
+        // unsubscribe to ensure no memory leaks
+        this.subscription.unsubscribe();
     }
 
     //Sets the correct error message to the this.errorMessages['fieldName'] 
@@ -207,14 +219,6 @@ export class MainComponent implements OnInit {
     }
 
     openModalEjesEquiv() {
-        return this.modal.open(EjesEquivalentesModal,  overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
-        /*
-        this.modal.alert()
-            .size('lg')
-            .showClose(true)
-            .title('Ejes equivalentes en el carril de diseño')
-            .body(``)
-            .open();
-        */
+        return this.modal.open(EjesEquivalentesModal, overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
     }
 }
