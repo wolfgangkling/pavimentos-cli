@@ -18,6 +18,7 @@ import { ModalModule } from 'angular2-modal';
 import { BootstrapModalModule } from 'angular2-modal/plugins/bootstrap';
 import { EjesEquivalentesModal } from './ejesequiv.modal';
 import { ConfiabilidadDisenoModal } from './confiabdiseno.modal';
+import { ErrorEstandarModal } from './errestandar.modal';
 
 import { MessageService } from '../../messaging/message.service';
 
@@ -35,10 +36,17 @@ import { MessageService } from '../../messaging/message.service';
         BootstrapModalModule
     ],
     declarations: [
-        MainComponent, EjesEquivalentesModal, ConfiabilidadDisenoModal
+        MainComponent, 
+        EjesEquivalentesModal, 
+        ConfiabilidadDisenoModal,
+        ErrorEstandarModal,
     ],
     exports: [MainComponent],
-    entryComponents: [EjesEquivalentesModal, ConfiabilidadDisenoModal],
+    entryComponents: [
+        EjesEquivalentesModal, 
+        ConfiabilidadDisenoModal,
+        ErrorEstandarModal
+    ],
     providers: [
         MessageService
     ]

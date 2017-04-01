@@ -11,6 +11,7 @@ import { Overlay, overlayConfigFactory } from 'angular2-modal';
 import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import { EjesEquivalentesModal, EjesEquivalentesModalContext } from './ejesequiv.modal';
 import { ConfiabilidadDisenoModal, ConfiabilidadDisenoModalContext } from './confiabdiseno.modal';
+import { ErrorEstandarModal, ErrorEstandarModalContext } from './errestandar.modal';
 
 import { MessageService } from '../../messaging/message.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -227,4 +228,7 @@ export class MainComponent implements OnInit {
         return this.modal.open(ConfiabilidadDisenoModal, overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
     }
 
+    openModalErrorEstandar() {
+        return this.modal.open(ErrorEstandarModal, overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
+    }
 }
