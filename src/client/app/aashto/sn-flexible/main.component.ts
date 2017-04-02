@@ -13,6 +13,7 @@ import { EjesEquivalentesModal, EjesEquivalentesModalContext } from './ejesequiv
 import { ConfiabilidadDisenoModal, ConfiabilidadDisenoModalContext } from './confiabdiseno.modal';
 import { ErrorEstandarModal, ErrorEstandarModalContext } from './errestandar.modal';
 import { ModuloResilienteModal, ModuloResilienteModalContext } from './modulores.modal';
+import { ServiciabilidadInicialModal, ServiciabilidadInicialModalContext } from './servicini.modal';
 
 import { MessageService } from '../../messaging/message.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -237,5 +238,8 @@ export class MainComponent implements OnInit {
         return this.modal.open(ModuloResilienteModal, overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
     }
 
+    openModalServiciabilidadInicial() {
+        return this.modal.open(ServiciabilidadInicialModal, overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
+    }
 
 }
