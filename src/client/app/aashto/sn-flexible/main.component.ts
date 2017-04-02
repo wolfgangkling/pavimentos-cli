@@ -12,6 +12,7 @@ import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import { EjesEquivalentesModal, EjesEquivalentesModalContext } from './ejesequiv.modal';
 import { ConfiabilidadDisenoModal, ConfiabilidadDisenoModalContext } from './confiabdiseno.modal';
 import { ErrorEstandarModal, ErrorEstandarModalContext } from './errestandar.modal';
+import { ModuloResilienteModal, ModuloResilienteModalContext } from './modulores.modal';
 
 import { MessageService } from '../../messaging/message.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -231,4 +232,10 @@ export class MainComponent implements OnInit {
     openModalErrorEstandar() {
         return this.modal.open(ErrorEstandarModal, overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
     }
+
+    openModalModuloResiliente() {
+        return this.modal.open(ModuloResilienteModal, overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
+    }
+
+
 }
