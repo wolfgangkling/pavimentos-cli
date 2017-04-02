@@ -1,0 +1,50 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="page-header col-lg-12" [ngStyle]="{'padding-top': '12px'}">
+            <div class="alert alert-info">
+                <h4>Serviciabilidad final</h4>
+            </div>
+        </div>
+    </div>
+    <div class="row col-lg-12">
+        <p>A continuación se listan las serviciabilidades finales típicas de varios tipos de vías. Para mayor detalle del Índice de Serviciabilidad, consulte la ayuda para la Serviciabilidad Inicial.</p>
+    </div>
+    <div class="row col-lg-12">
+        <div class="table-responsive">
+            <div class="table-responsive">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <td>Autopistas o arterias principales</td>
+                            <td>2,50</td>
+                        </tr>
+                        <tr>
+                            <td>Vías intermedias, calles industriales y comerciales</td>
+                            <td>2,25</td>
+                        </tr>
+                        <tr>
+                            <td>Vías secundarias, calles residenciales o lotes de parqueo</td>
+                            <td>2,00</td>
+                        </tr>
+                        <tr>
+                            <td>Estado de falla en la prueba vial de la AASHO</td>
+                            <td>1,50</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row col-xs-13">
+            <!--div class="col-xs-6">
+            <button type="button" (click)="cancelModal()" class="btn btn-danger center-block">Cancelar</button>
+        </div>
+        <div class="col-xs-1">
+        </div-->
+            <div class="col-xs-13">
+                <button type="button" (click)="okModal()" class="btn btn-primary center-block">Aceptar</button>
+            </div>
+        </div>
+        <div class="row col-xs-12">
+            <p></p>
+        </div>
+    </div>

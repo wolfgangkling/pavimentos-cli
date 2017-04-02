@@ -21,6 +21,8 @@ import { ConfiabilidadDisenoModal } from './confiabdiseno.modal';
 import { ErrorEstandarModal } from './errestandar.modal';
 import { ModuloResilienteModal } from './modulores.modal';
 import { ServiciabilidadInicialModal } from './servicini.modal';
+import { ServiciabilidadFinalModal } from './servicfin.modal';
+import { NumeroEstructuralModal } from './numestruc.modal';
 
 import { MessageService } from '../../messaging/message.service';
 
@@ -35,7 +37,7 @@ import { MessageService } from '../../messaging/message.service';
         HttpModule,
         CustomFormsModule,
         ModalModule.forRoot(),
-        BootstrapModalModule
+        BootstrapModalModule,
     ],
     declarations: [
         MainComponent,
@@ -44,6 +46,8 @@ import { MessageService } from '../../messaging/message.service';
         ErrorEstandarModal,
         ModuloResilienteModal,
         ServiciabilidadInicialModal,
+        ServiciabilidadFinalModal,
+        NumeroEstructuralModal,
     ],
     exports: [MainComponent],
     entryComponents: [
@@ -51,7 +55,9 @@ import { MessageService } from '../../messaging/message.service';
         ConfiabilidadDisenoModal,
         ErrorEstandarModal,
         ModuloResilienteModal,
-        ServiciabilidadInicialModal
+        ServiciabilidadInicialModal,
+        ServiciabilidadFinalModal,
+        NumeroEstructuralModal,
     ],
     providers: [
         MessageService

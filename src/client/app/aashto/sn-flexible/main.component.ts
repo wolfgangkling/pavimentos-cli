@@ -14,6 +14,8 @@ import { ConfiabilidadDisenoModal, ConfiabilidadDisenoModalContext } from './con
 import { ErrorEstandarModal, ErrorEstandarModalContext } from './errestandar.modal';
 import { ModuloResilienteModal, ModuloResilienteModalContext } from './modulores.modal';
 import { ServiciabilidadInicialModal, ServiciabilidadInicialModalContext } from './servicini.modal';
+import { ServiciabilidadFinalModal, ServiciabilidadFinalModalContext } from './servicfin.modal';
+import { NumeroEstructuralModal, NumeroEstructuralModalContext } from './numestruc.modal';
 
 import { MessageService } from '../../messaging/message.service';
 import { Subscription } from 'rxjs/Subscription';
@@ -242,4 +244,11 @@ export class MainComponent implements OnInit {
         return this.modal.open(ServiciabilidadInicialModal, overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
     }
 
+    openModalServiciabilidadFinal() {
+        return this.modal.open(ServiciabilidadFinalModal, overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
+    }
+
+    openModalNumeroEstructural() {
+        return this.modal.open(NumeroEstructuralModal, overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
+    }
 }
