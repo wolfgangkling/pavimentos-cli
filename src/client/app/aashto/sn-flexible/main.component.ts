@@ -57,7 +57,7 @@ export class MainComponent implements OnInit {
     ngOnInit() {
         //Initialize form controls
         this.myForm = this._fb.group({
-            ejesequiv: ['', [Validators.required, CustomValidators.range([0, 10000000])]],
+            ejesequiv: ['', [Validators.required, CustomValidators.range([0, 100000000])]],
             confiabdiseno: ['', [Validators.required]],
             errestandar: ['', [Validators.required, CustomValidators.range([0, 1])]],
             modresili: ['', [Validators.required, CustomValidators.gt(0)]],
@@ -70,7 +70,7 @@ export class MainComponent implements OnInit {
         this.validationMessages = {
             'ejesequiv': {
                 'required': 'Debe ingresar el N',
-                'range': 'El N deben ser un valor numérico > 0 y < 10.000.000',
+                'range': 'El N deben ser un valor numérico > 0 y < 10^8',
             },
             'confiabdiseno': {
                 'required': 'Es necesario seleccionar un R',
@@ -104,11 +104,11 @@ export class MainComponent implements OnInit {
         //Delete .. just for testing purposes
         let pavimento: Pavimento = {
             ejesequiv: 7950000,
-            confiabdiseno: '95.00',
-            errestandar: 0.49,
+            confiabdiseno: '90.00',
+            errestandar: 0.44,
             modresili: 90,
-            servicini: 4.5,
-            servicfin: 2.8,
+            servicini: 4.20,
+            servicfin: 2.0,
             numestruc: null,
         }
 

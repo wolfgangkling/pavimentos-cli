@@ -20,7 +20,7 @@ export class AashtoFlexibleService {
       let Pt: number = pavimento.servicfin;
       let Mr: number = pavimento.modresili * 10;
 
-      let logW18_objetivo: number = roundDecimal(Math.log10(N), 3);
+      let logW18_objetivo: number = roundDecimal(Math.log10(N), 2);
       let log_obtenido: number = 0;
 
       let SN_1: number = 100;
@@ -36,11 +36,11 @@ export class AashtoFlexibleService {
           //console.log('Math.log10((Po - Pt) / 2.7): ' + (Math.log10((Po - Pt) / 2.7)));
           //console.log('(0.4 + (1094 / ((SN_tant + 1) ^ 5.19))): ' + (0.4 + (1094 / (Math.pow(SN_tant + 1, 5.19)))));
           //console.log('2.32 * Math.log10(Mr / 0.07) - 8.07, 3: ' + (2.32 * Math.log10(Mr / 0.07) - 8.07));
-          //console.log('iter: ' + (i +1));
-          //console.log('   logW18_objetivo: ' + logW18_objetivo);
-          //console.log('   log_obtenido: ' + log_obtenido);
-          //console.log('   SN_1: ' + SN_1);
-          //console.log('   SN_2: ' + SN_2);
+          console.log('iter: ' + (i +1));
+          console.log('   logW18_objetivo: ' + logW18_objetivo);
+          console.log('   log_obtenido: ' + log_obtenido);
+          console.log('   SN_1: ' + SN_1);
+          console.log('   SN_2: ' + SN_2);
         
           if (logW18_objetivo < log_obtenido) {
               SN_2 = SN_1;
@@ -111,6 +111,7 @@ export class AashtoFlexibleService {
     return [
       '99.99',
       '99.90',
+      '99.00',
       '98.00',
       '97.00',
       '96.00',
