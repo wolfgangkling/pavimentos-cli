@@ -102,7 +102,7 @@ export class MainComponent implements OnInit {
         this.confiabDisenoOptions = this.getConfiabDisenoOptions();
 
         //Delete .. just for testing purposes
-        let pavimento: Pavimento = {
+/*        let pavimento: Pavimento = {
             ejesequiv: 7950000,
             confiabdiseno: '90.00',
             errestandar: 0.44,
@@ -121,7 +121,7 @@ export class MainComponent implements OnInit {
         this.myForm.controls['numestruc'].setValue(pavimento.numestruc);
 
         this.calcularNumeroEstructural(this.myForm);
-        //END Delete .. just for testing purposes
+*/        //END Delete .. just for testing purposes
     }
 
     ngOnDestroy() {
@@ -158,7 +158,7 @@ export class MainComponent implements OnInit {
 
     posValidations() {
         if (this.myForm.value.numestruc == null) {
-            console.log('this.myForm.value.numestruc == null');
+            //console.log('this.myForm.value.numestruc == null');
             //Raise error to numestruc control
             this.myForm.controls['numestruc'].setErrors({ invalid: 'invalid' }, true);
             this.setErrorMessagesToForm();
@@ -170,42 +170,42 @@ export class MainComponent implements OnInit {
     //updates myForm in select controls (bug)
     onChangeConfiabilidadDiseno(newValue: any) {
 
-        console.log('onChangeConfiabilidadDiseno(..)');
+        //console.log('onChangeConfiabilidadDiseno(..)');
         if (newValue != '') {
             let pavimento = this.formToPavimento(this.myForm);
             pavimento.confiabdiseno = newValue;
-            console.log('Pavimento frm: ' + JSON.stringify(pavimento));
+            //console.log('Pavimento frm: ' + JSON.stringify(pavimento));
 
             this.aashtoFlexibleService.calcular(pavimento).subscribe(data => pavimento = data);
 
             this.myForm.controls['numestruc'].setValue(pavimento.numestruc);
-            console.log('Pavimento res: ' + JSON.stringify(pavimento));
+            //console.log('Pavimento res: ' + JSON.stringify(pavimento));
         }
         else {
-            console.log('Form not valid');
+            //console.log('Form not valid');
         }
     }
 
     calcularNumeroEstructural(myForm: FormGroup) {
-        console.log('calcular()');
+        //console.log('calcular()');
 
         if (myForm.valid) {
 
             let pavimento = this.formToPavimento(myForm);
-            console.log('Pavimento frm: ' + JSON.stringify(pavimento));
+            //console.log('Pavimento frm: ' + JSON.stringify(pavimento));
 
             this.aashtoFlexibleService.calcular(pavimento).subscribe(data => pavimento = data);
 
             this.myForm.controls['numestruc'].setValue(pavimento.numestruc);
-            console.log('Pavimento res: ' + JSON.stringify(pavimento));
+            //console.log('Pavimento res: ' + JSON.stringify(pavimento));
         }
         else {
-            console.log('Form not valid');
+            //console.log('Form not valid');
         }
     }
 
     private formToPavimento(myForm: FormGroup): Pavimento {
-        console.log('formToPavimento(...)');
+        //console.log('formToPavimento(...)');
         let pavimento: Pavimento = {
             ejesequiv: myForm.value.ejesequiv,
             confiabdiseno: myForm.value.confiabdiseno,
@@ -220,7 +220,7 @@ export class MainComponent implements OnInit {
     }
 
     private getConfiabDisenoOptions() {
-        console.log('getConfiabDisenoOptions()');
+        //console.log('getConfiabDisenoOptions()');
         return this.aashtoFlexibleService.confiabDisenoOptions();
     }
 
