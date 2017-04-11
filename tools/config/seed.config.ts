@@ -334,9 +334,9 @@ export class SeedConfig {
       '@angular/core/testing': 'node_modules/@angular/core/bundles/core-testing.umd.js',
       '@angular/http/testing': 'node_modules/@angular/http/bundles/http-testing.umd.js',
       '@angular/platform-browser/testing':
-        'node_modules/@angular/platform-browser/bundles/platform-browser-testing.umd.js',
+      'node_modules/@angular/platform-browser/bundles/platform-browser-testing.umd.js',
       '@angular/platform-browser-dynamic/testing':
-        'node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.js',
+      'node_modules/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.js',
       '@angular/router/testing': 'node_modules/@angular/router/bundles/router-testing.umd.js',
 
       'rxjs/*': 'node_modules/rxjs/*',
@@ -344,12 +344,12 @@ export class SeedConfig {
       // For test config
       'dist/dev/*': '/base/dist/dev/*',
       '*': 'node_modules/*',
-      'angular2-modal/plugins/bootstrap': 'node_modules/angular2-modal/bundles/angular2-modal.bootstrap.umd.js'
+      'angular2-modal/plugins/bootstrap': 'node_modules/angular2-modal/bundles/angular2-modal.bootstrap.umd.js',
     },
     packages: {
       rxjs: { defaultExtension: 'js' }
     },
-    map : {
+    map: {
       'ng2-validation': 'ng2-validation/bundles/ng2-validation.umd.js',
     }
   };

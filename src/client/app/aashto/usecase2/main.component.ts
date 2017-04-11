@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 //https://github.com/kekeh/mydatepicker#locale-attribute
 import { IMyOptions, IMyDate, IMyDateModel, IMyCalendarViewChanged } from 'mydatepicker';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Logger } from "angular2-logger/core";
 
 @Component({
     moduleId: module.id,
@@ -24,7 +25,10 @@ export class MainComponent implements OnInit {
     private border: string = 'none';
 
 
-    constructor(private formBuilder: FormBuilder) {
+    constructor(
+        private formBuilder: FormBuilder,
+        private logger: Logger
+    ) {
     }
 
     ngOnInit() {
@@ -34,7 +38,7 @@ export class MainComponent implements OnInit {
     }
 
     onDateChanged(event: IMyDateModel) {
-        console.log('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleDateString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+        this.logger.debug('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleDateString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
         if (event.formatted !== '') {
             this.selectedTextInline = 'Formatted: ' + event.formatted + ' - epoc timestamp: ' + event.epoc;
             this.border = '1px solid #CCC';
@@ -46,11 +50,11 @@ export class MainComponent implements OnInit {
     }
 
     onCalendarViewChanged(event: IMyCalendarViewChanged) {
-        console.log('onCalendarViewChanged(): Year: ', event.year, ' - month: ', event.month, ' - first: ', event.first, ' - last: ', event.last);
+        this.logger.debug('onCalendarViewChanged(): Year: ', event.year, ' - month: ', event.month, ' - first: ', event.first, ' - last: ', event.last);
     }
 
     onCalendarToggle(event: number): void {
-        console.log('onCalendarToggle(): Reason: ', event);
+        this.logger.debug('onCalendarToggle(): Reason: ', event);
     }
 
     getClassForClassGroup() {

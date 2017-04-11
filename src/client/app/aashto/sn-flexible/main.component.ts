@@ -1,14 +1,19 @@
-//Angular imports
+//Angular and core imports
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs/Subscription';
 //Angular addons imports
 import { CustomValidators } from 'ng2-validation';
+//Modal windows
+import { Overlay, overlayConfigFactory } from 'angular2-modal';
+import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
+//Observer observable imports
+import { MessageService } from '../../messaging/message.service';
+//Logger imports
+import { Logger } from "angular2-logger/core";
 //Business imports
 import { Pavimento } from './pavimento.model';
 import { AashtoFlexibleService } from './sn-flexible.service';
-
-import { Overlay, overlayConfigFactory } from 'angular2-modal';
-import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 import { EjesEquivalentesModal, EjesEquivalentesModalContext } from './ejesequiv.modal';
 import { ConfiabilidadDisenoModal, ConfiabilidadDisenoModalContext } from './confiabdiseno.modal';
 import { ErrorEstandarModal, ErrorEstandarModalContext } from './errestandar.modal';
@@ -16,9 +21,6 @@ import { ModuloResilienteModal, ModuloResilienteModalContext } from './modulores
 import { ServiciabilidadInicialModal, ServiciabilidadInicialModalContext } from './servicini.modal';
 import { ServiciabilidadFinalModal, ServiciabilidadFinalModalContext } from './servicfin.modal';
 import { NumeroEstructuralModal, NumeroEstructuralModalContext } from './numestruc.modal';
-
-import { MessageService } from '../../messaging/message.service';
-import { Subscription } from 'rxjs/Subscription';
 
 @Component({
     moduleId: module.id,
@@ -48,7 +50,8 @@ export class MainComponent implements OnInit {
         overlay: Overlay,
         vcRef: ViewContainerRef,
         public modal: Modal,
-        private messageService: MessageService
+        private messageService: MessageService,
+        private logger: Logger
     ) {
         overlay.defaultViewContainer = vcRef;
         this.subscription = this.messageService.getEventObject('ejesequiv').subscribe(eventObject => { this.myForm.controls['ejesequiv'].setValue(<number>eventObject)});
@@ -158,7 +161,6 @@ export class MainComponent implements OnInit {
 
     posValidations() {
         if (this.myForm.value.numestruc == null) {
-            //console.log('this.myForm.value.numestruc == null');
             //Raise error to numestruc control
             this.myForm.controls['numestruc'].setErrors({ invalid: 'invalid' }, true);
             this.setErrorMessagesToForm();
@@ -170,42 +172,42 @@ export class MainComponent implements OnInit {
     //updates myForm in select controls (bug)
     onChangeConfiabilidadDiseno(newValue: any) {
 
-        //console.log('onChangeConfiabilidadDiseno(..)');
+        this.logger.debug('onChangeConfiabilidadDiseno(..)');
         if (newValue != '') {
             let pavimento = this.formToPavimento(this.myForm);
             pavimento.confiabdiseno = newValue;
-            //console.log('Pavimento frm: ' + JSON.stringify(pavimento));
+            this.logger.debug('Pavimento frm: ' + JSON.stringify(pavimento));
 
             this.aashtoFlexibleService.calcular(pavimento).subscribe(data => pavimento = data);
 
             this.myForm.controls['numestruc'].setValue(pavimento.numestruc);
-            //console.log('Pavimento res: ' + JSON.stringify(pavimento));
+            this.logger.debug('Pavimento res: ' + JSON.stringify(pavimento));
         }
         else {
-            //console.log('Form not valid');
+            this.logger.debug('Form not valid');
         }
     }
 
     calcularNumeroEstructural(myForm: FormGroup) {
-        //console.log('calcular()');
+        this.logger.debug('calcular()');
 
         if (myForm.valid) {
 
             let pavimento = this.formToPavimento(myForm);
-            //console.log('Pavimento frm: ' + JSON.stringify(pavimento));
+            this.logger.debug('Pavimento frm: ' + JSON.stringify(pavimento));
 
             this.aashtoFlexibleService.calcular(pavimento).subscribe(data => pavimento = data);
 
             this.myForm.controls['numestruc'].setValue(pavimento.numestruc);
-            //console.log('Pavimento res: ' + JSON.stringify(pavimento));
+            this.logger.debug('Pavimento res: ' + JSON.stringify(pavimento));
         }
         else {
-            //console.log('Form not valid');
+            this.logger.debug('Form not valid');
         }
     }
 
     private formToPavimento(myForm: FormGroup): Pavimento {
-        //console.log('formToPavimento(...)');
+        this.logger.debug('formToPavimento(...)');
         let pavimento: Pavimento = {
             ejesequiv: myForm.value.ejesequiv,
             confiabdiseno: myForm.value.confiabdiseno,
@@ -220,7 +222,7 @@ export class MainComponent implements OnInit {
     }
 
     private getConfiabDisenoOptions() {
-        //console.log('getConfiabDisenoOptions()');
+        this.logger.debug('getConfiabDisenoOptions()');
         return this.aashtoFlexibleService.confiabDisenoOptions();
     }
 

@@ -6,63 +6,69 @@ import { Observable } from 'rxjs/Rx';
 import { Pavimento } from './pavimento.model';
 
 import { roundDecimal } from '../../utils/math.util';
+import { Logger } from "angular2-logger/core";
 
 @Injectable()
 export class AashtoFlexibleService {
 
+  constructor(
+    private logger: Logger
+  ) {
+  }
+
   calcular(pavimento: Pavimento): Observable<Pavimento> {
 
-      let N: number = pavimento.ejesequiv;
-      let R: string = pavimento.confiabdiseno;
-      let Zr: number = this.calcZr(R);
-      let So: number = pavimento.errestandar;
-      let Po: number = pavimento.servicini;
-      let Pt: number = pavimento.servicfin;
-      let Mr: number = pavimento.modresili * 10;
+    let N: number = pavimento.ejesequiv;
+    let R: string = pavimento.confiabdiseno;
+    let Zr: number = this.calcZr(R);
+    let So: number = pavimento.errestandar;
+    let Po: number = pavimento.servicini;
+    let Pt: number = pavimento.servicfin;
+    let Mr: number = pavimento.modresili * 10;
 
-      let logW18_objetivo: number = roundDecimal(Math.log10(N), 2);
-      let log_obtenido: number = 0;
+    let logW18_objetivo: number = roundDecimal(Math.log10(N), 2);
+    let log_obtenido: number = 0;
 
-      let SN_1: number = 100;
-      let SN_2: number = 0;
-      let SN_tant: number = SN_1;
+    let SN_1: number = 100;
+    let SN_2: number = 0;
+    let SN_tant: number = SN_1;
 
-      log_obtenido = roundDecimal(Zr * So + 9.36 * Math.log10(SN_tant + 1) - 0.2 +
-        ((Math.log10((Po - Pt) / 2.7)) / (0.4 + (1094 / (Math.pow(SN_tant + 1, 5.19))))) +
-        2.32 * Math.log10(Mr / 0.07) - 8.07, 2);
+    log_obtenido = roundDecimal(Zr * So + 9.36 * Math.log10(SN_tant + 1) - 0.2 +
+      ((Math.log10((Po - Pt) / 2.7)) / (0.4 + (1094 / (Math.pow(SN_tant + 1, 5.19))))) +
+      2.32 * Math.log10(Mr / 0.07) - 8.07, 2);
 
-      for (var i = 0; logW18_objetivo != log_obtenido && i < 100; i++) {
-          //console.log('Zr * So + 9.36 * Math.log10(SN_tant + 1) - 0.2: ' + (Zr * So + 9.36 * Math.log10(SN_tant + 1) - 0.2));
-          //console.log('Math.log10((Po - Pt) / 2.7): ' + (Math.log10((Po - Pt) / 2.7)));
-          //console.log('(0.4 + (1094 / ((SN_tant + 1) ^ 5.19))): ' + (0.4 + (1094 / (Math.pow(SN_tant + 1, 5.19)))));
-          //console.log('2.32 * Math.log10(Mr / 0.07) - 8.07, 3: ' + (2.32 * Math.log10(Mr / 0.07) - 8.07));
-          console.log('iter: ' + (i +1));
-          console.log('   logW18_objetivo: ' + logW18_objetivo);
-          console.log('   log_obtenido: ' + log_obtenido);
-          console.log('   SN_1: ' + SN_1);
-          console.log('   SN_2: ' + SN_2);
-        
-          if (logW18_objetivo < log_obtenido) {
-              SN_2 = SN_1;
-              SN_1 = SN_1 / 2;
-          }
-          else {
-              SN_1 = (SN_1 + SN_2) / 2
-          }
-          log_obtenido = roundDecimal(Zr * So + 9.36 * Math.log10(SN_1 + 1) - 0.2 +
-          ((Math.log10((Po - Pt) / 2.7)) / (0.4 + (1094 / (Math.pow(SN_1 + 1, 5.19))))) +
-          2.32 * Math.log10(Mr / 0.07) - 8.07, 2);
-      }
-      if (logW18_objetivo == log_obtenido) {
-          console.log('logW18_objetivo == log_obtenido');
-          pavimento.numestruc = roundDecimal(SN_1, 2);
+    for (var i = 0; logW18_objetivo != log_obtenido && i < 100; i++) {
+      //this.logger.debug('Zr * So + 9.36 * Math.log10(SN_tant + 1) - 0.2: ' + (Zr * So + 9.36 * Math.log10(SN_tant + 1) - 0.2));
+      //this.logger.debug('Math.log10((Po - Pt) / 2.7): ' + (Math.log10((Po - Pt) / 2.7)));
+      //this.logger.debug('(0.4 + (1094 / ((SN_tant + 1) ^ 5.19))): ' + (0.4 + (1094 / (Math.pow(SN_tant + 1, 5.19)))));
+      //this.logger.debug('2.32 * Math.log10(Mr / 0.07) - 8.07, 3: ' + (2.32 * Math.log10(Mr / 0.07) - 8.07));
+      this.logger.debug('iter: ' + (i + 1));
+      this.logger.debug('   logW18_objetivo: ' + logW18_objetivo);
+      this.logger.debug('   log_obtenido: ' + log_obtenido);
+      this.logger.debug('   SN_1: ' + SN_1);
+      this.logger.debug('   SN_2: ' + SN_2);
+
+      if (logW18_objetivo < log_obtenido) {
+        SN_2 = SN_1;
+        SN_1 = SN_1 / 2;
       }
       else {
-          console.log('no converge');
-          pavimento.numestruc = null;
+        SN_1 = (SN_1 + SN_2) / 2
       }
+      log_obtenido = roundDecimal(Zr * So + 9.36 * Math.log10(SN_1 + 1) - 0.2 +
+        ((Math.log10((Po - Pt) / 2.7)) / (0.4 + (1094 / (Math.pow(SN_1 + 1, 5.19))))) +
+        2.32 * Math.log10(Mr / 0.07) - 8.07, 2);
+    }
+    if (logW18_objetivo == log_obtenido) {
+      this.logger.debug('logW18_objetivo == log_obtenido');
+      pavimento.numestruc = roundDecimal(SN_1, 2);
+    }
+    else {
+      this.logger.debug('no converge');
+      pavimento.numestruc = null;
+    }
 
-      return Observable.of(pavimento);
+    return Observable.of(pavimento);
   }
 
   calcZr(R: string): number {

@@ -13,7 +13,8 @@ import { LoginModule } from './login/login.module';
 import { SignupModule } from './signup/signup.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { SharedModule } from './shared/shared.module';
-
+import { Logger } from "angular2-logger/core";
+import {DEBUG_LOGGER_PROVIDERS, WARN_LOGGER_PROVIDERS, ERROR_LOGGER_PROVIDERS} from "angular2-logger/core";
 
 @NgModule({
 	imports: [
@@ -23,13 +24,19 @@ import { SharedModule } from './shared/shared.module';
 		LoginModule,
 		SignupModule,
 		DashboardModule,
-		SharedModule.forRoot()
+		SharedModule.forRoot(),
 	],
 	declarations: [AppComponent],
-	providers: [{
-		provide: APP_BASE_HREF,
-		useValue: '<%= APP_BASE %>'
-	}],
+	providers: [
+		{
+			provide: APP_BASE_HREF,
+			useValue: '<%= APP_BASE %>'
+		},
+		Logger,		
+		DEBUG_LOGGER_PROVIDERS, //For development mode
+		//WARN_LOGGER_PROVIDERS, //For production mode
+		//ERROR_LOGGER_PROVIDERS, //For production mode
+	],
 	bootstrap: [AppComponent],
 })
 
