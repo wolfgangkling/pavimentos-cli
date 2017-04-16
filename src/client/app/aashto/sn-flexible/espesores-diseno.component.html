@@ -1,0 +1,82 @@
+<div class="container-fluid">
+    <!-- Page Heading -->
+    <div class="row">
+        <div class="col-xl-12">
+            <ol class="breadcrumb">
+                <li>
+                    <i class="fa"></i><a>AASHTO Flexible</a>
+                </li>
+                <li class="active">
+                    <i class="fa"></i>
+                    <a routerLink="/dashboard/sn-flexible">SN</a>
+                </li>
+                <li class="active">
+                    <i class="fa"></i>
+                    <a routerLink="/dashboard/sn-flexible/espesores">Espesores de diseño</a>
+                </li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <form [formGroup]="myForm">
+            <div class="row">
+                <div class="col-xl-3">
+                    <label for="id_numestrucreq" class="form-control-label">SN requerido</label>
+                </div>
+                <div class="col-xl-6">
+                    <div class="form-group input-group">
+                        <span class="input-group-addon">SNreq</span>
+                        <input type="text" readonly formControlName="numestrucreq" class="form-control" id="id_numestrucreq">
+                        <span class="input-group-addon">pulg</span>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xl-3">
+                    <label for="id_numestrucdis" class="form-control-label">SN estructura de diseño</label>
+                </div>
+                <div class="col-xl-6">
+                    <div class="form-group input-group">
+                        <span class="input-group-addon">SNdis</span>
+                        <input type="text" readonly formControlName="numestrucdis" class="form-control" id="id_numestrucdis">
+                        <span class="input-group-addon">pulg</span>
+                    </div>
+                    <p [hidden]="(myForm.controls.numestrucdis.dirty) || myForm.controls.numestrucdis.valid" class="small text-danger">
+                        {{ errorMessages.numestrucdis }}
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-10 col-lg-offset-1">
+                    <div class="table-responsive">
+                        <table class="table table-hover table-striped">
+                            <thead>
+                                <tr>
+                                    <th>Tipo de material</th>
+                                    <th>Nombre</th>
+                                    <th>Coeficiente de aporte (a)</th>
+                                    <th>Coeficiente de drenaje (m)</th>
+                                    <th>Espesor de la capa (cm)</th>
+                                    <th>Aporte al SN</th>
+                                    <th colspan="2"><a (click)="openModalAgregarCapa()"><i class="fa fa-plus-square"></i></a></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let capa of capasDiseno">
+                                    <td>{{capa.tipoMaterial}}</td>
+                                    <td>{{capa.nombre}}</td>
+                                    <td [ngStyle]="{'text-align':'center'}">{{capa.coeficienteAporte}}</td>
+                                    <td [ngStyle]="{'text-align':'center'}">{{capa.coeficienteDrenaje}}</td>
+                                    <td [ngStyle]="{'text-align':'center'}">{{capa.espesor}}</td>
+                                    <td [ngStyle]="{'text-align':'center'}">{{capa.aporteAlsn}}</td>
+                                    <td><a (click)="eliminarCapa(capa)"><i class="fa fa-trash-o"></i></a></td>
+                                    <td><a (click)="openModalAgregarCapa()"><i class="fa fa-edit"></i></a></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

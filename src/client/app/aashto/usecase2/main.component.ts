@@ -38,7 +38,7 @@ export class MainComponent implements OnInit {
     }
 
     onDateChanged(event: IMyDateModel) {
-        this.logger.debug('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleDateString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
+        this.logger.log('onDateChanged(): ', event.date, ' - jsdate: ', new Date(event.jsdate).toLocaleDateString(), ' - formatted: ', event.formatted, ' - epoc timestamp: ', event.epoc);
         if (event.formatted !== '') {
             this.selectedTextInline = 'Formatted: ' + event.formatted + ' - epoc timestamp: ' + event.epoc;
             this.border = '1px solid #CCC';
@@ -50,11 +50,11 @@ export class MainComponent implements OnInit {
     }
 
     onCalendarViewChanged(event: IMyCalendarViewChanged) {
-        this.logger.debug('onCalendarViewChanged(): Year: ', event.year, ' - month: ', event.month, ' - first: ', event.first, ' - last: ', event.last);
+        this.logger.log('onCalendarViewChanged(): Year: ', event.year, ' - month: ', event.month, ' - first: ', event.first, ' - last: ', event.last);
     }
 
     onCalendarToggle(event: number): void {
-        this.logger.debug('onCalendarToggle(): Reason: ', event);
+        this.logger.log('onCalendarToggle(): Reason: ', event);
     }
 
     getClassForClassGroup() {

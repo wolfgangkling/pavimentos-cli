@@ -2,6 +2,7 @@
 import { Component, OnInit, ViewChild, ViewContainerRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Subscription } from 'rxjs/Subscription';
+import { Router } from '@angular/router';
 //Angular addons imports
 import { CustomValidators } from 'ng2-validation';
 //Modal windows
@@ -10,7 +11,7 @@ import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 //Observer observable imports
 import { MessageService } from '../../messaging/message.service';
 //Logger imports
-import { Logger } from "angular2-logger/core";
+import { Logger } from 'angular2-logger/core';
 //Business imports
 import { Pavimento } from './pavimento.model';
 import { AashtoFlexibleService } from './sn-flexible.service';
@@ -28,7 +29,6 @@ import { NumeroEstructuralModal, NumeroEstructuralModalContext } from './numestr
     templateUrl: './main.component.html',
     providers: [
         FormBuilder,
-        AashtoFlexibleService,
     ]
 })
 
@@ -51,10 +51,11 @@ export class MainComponent implements OnInit {
         vcRef: ViewContainerRef,
         public modal: Modal,
         private messageService: MessageService,
-        private logger: Logger
+        private logger: Logger,
+        private router: Router,
     ) {
         overlay.defaultViewContainer = vcRef;
-        this.subscription = this.messageService.getEventObject('ejesequiv').subscribe(eventObject => { this.myForm.controls['ejesequiv'].setValue(<number>eventObject)});
+        this.subscription = this.messageService.getEventObject('ejesequiv').subscribe(eventObject => { this.myForm.controls['ejesequiv'].setValue(<number>eventObject) });
     }
 
     ngOnInit() {
@@ -105,7 +106,7 @@ export class MainComponent implements OnInit {
         this.confiabDisenoOptions = this.getConfiabDisenoOptions();
 
         //Delete .. just for testing purposes
-/*        let pavimento: Pavimento = {
+        let pavimento: Pavimento = {
             ejesequiv: 7950000,
             confiabdiseno: '90.00',
             errestandar: 0.44,
@@ -124,7 +125,7 @@ export class MainComponent implements OnInit {
         this.myForm.controls['numestruc'].setValue(pavimento.numestruc);
 
         this.calcularNumeroEstructural(this.myForm);
-*/        //END Delete .. just for testing purposes
+        //END Delete .. just for testing purposes
     }
 
     ngOnDestroy() {
@@ -145,7 +146,6 @@ export class MainComponent implements OnInit {
                 }
             }
         }
-
     }
 
     onChangeAnyField() {
@@ -172,42 +172,47 @@ export class MainComponent implements OnInit {
     //updates myForm in select controls (bug)
     onChangeConfiabilidadDiseno(newValue: any) {
 
-        this.logger.debug('onChangeConfiabilidadDiseno(..)');
+        this.logger.log('onChangeConfiabilidadDiseno(..)');
         if (newValue != '') {
             let pavimento = this.formToPavimento(this.myForm);
             pavimento.confiabdiseno = newValue;
-            this.logger.debug('Pavimento frm: ' + JSON.stringify(pavimento));
+            this.logger.log('Pavimento frm: ' + JSON.stringify(pavimento));
 
             this.aashtoFlexibleService.calcular(pavimento).subscribe(data => pavimento = data);
 
             this.myForm.controls['numestruc'].setValue(pavimento.numestruc);
-            this.logger.debug('Pavimento res: ' + JSON.stringify(pavimento));
+            this.logger.log('Pavimento res: ' + JSON.stringify(pavimento));
         }
         else {
-            this.logger.debug('Form not valid');
+            this.logger.log('Form not valid');
         }
     }
 
     calcularNumeroEstructural(myForm: FormGroup) {
-        this.logger.debug('calcular()');
+        this.logger.log('calcular()');
 
         if (myForm.valid) {
 
             let pavimento = this.formToPavimento(myForm);
-            this.logger.debug('Pavimento frm: ' + JSON.stringify(pavimento));
+            this.logger.log('Pavimento frm: ' + JSON.stringify(pavimento));
 
             this.aashtoFlexibleService.calcular(pavimento).subscribe(data => pavimento = data);
 
             this.myForm.controls['numestruc'].setValue(pavimento.numestruc);
-            this.logger.debug('Pavimento res: ' + JSON.stringify(pavimento));
+            this.logger.log('Pavimento res: ' + JSON.stringify(pavimento));
+            if (pavimento.numestruc == null)
+                this.aashtoFlexibleService.pavimento = undefined;
+            else
+                this.aashtoFlexibleService.pavimento = pavimento;
         }
         else {
-            this.logger.debug('Form not valid');
+            this.logger.log('Form not valid');
+            this.aashtoFlexibleService.pavimento = undefined;
         }
     }
 
     private formToPavimento(myForm: FormGroup): Pavimento {
-        this.logger.debug('formToPavimento(...)');
+        this.logger.log('formToPavimento(...)');
         let pavimento: Pavimento = {
             ejesequiv: myForm.value.ejesequiv,
             confiabdiseno: myForm.value.confiabdiseno,
@@ -222,7 +227,7 @@ export class MainComponent implements OnInit {
     }
 
     private getConfiabDisenoOptions() {
-        this.logger.debug('getConfiabDisenoOptions()');
+        this.logger.log('getConfiabDisenoOptions()');
         return this.aashtoFlexibleService.confiabDisenoOptions();
     }
 
@@ -252,5 +257,11 @@ export class MainComponent implements OnInit {
 
     openModalNumeroEstructural() {
         return this.modal.open(NumeroEstructuralModal, overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
+    }
+
+    espesores(): void {
+        if (this.aashtoFlexibleService.pavimento != undefined) {
+            this.router.navigateByUrl('/dashboard/sn-flexible/espesores', { skipLocationChange: true });
+        }
     }
 }

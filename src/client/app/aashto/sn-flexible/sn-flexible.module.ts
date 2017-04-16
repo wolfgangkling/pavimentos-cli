@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { CustomFormsModule } from 'ng2-validation'
 
 import { MainComponent } from './main.component';
-//import { AgreementDetailComponent } from './detail.component';
+import { EspesoresDisenoComponent } from './espesores-diseno.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
@@ -23,7 +23,9 @@ import { ModuloResilienteModal } from './modulores.modal';
 import { ServiciabilidadInicialModal } from './servicini.modal';
 import { ServiciabilidadFinalModal } from './servicfin.modal';
 import { NumeroEstructuralModal } from './numestruc.modal';
+import { CapaModal } from './capa.modal';
 
+import { AashtoFlexibleService } from './sn-flexible.service';
 import { MessageService } from '../../messaging/message.service';
 
 @NgModule({
@@ -41,6 +43,7 @@ import { MessageService } from '../../messaging/message.service';
     ],
     declarations: [
         MainComponent,
+        EspesoresDisenoComponent,
         EjesEquivalentesModal,
         ConfiabilidadDisenoModal,
         ErrorEstandarModal,
@@ -48,6 +51,7 @@ import { MessageService } from '../../messaging/message.service';
         ServiciabilidadInicialModal,
         ServiciabilidadFinalModal,
         NumeroEstructuralModal,
+        CapaModal,
     ],
     exports: [MainComponent],
     entryComponents: [
@@ -58,9 +62,11 @@ import { MessageService } from '../../messaging/message.service';
         ServiciabilidadInicialModal,
         ServiciabilidadFinalModal,
         NumeroEstructuralModal,
+        CapaModal,
     ],
     providers: [
-        MessageService
+        MessageService,
+        AashtoFlexibleService,
     ]
 })
 

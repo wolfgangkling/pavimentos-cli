@@ -9,3 +9,15 @@ export class Pavimento {
     public numestruc: number,
   ) { }
 }
+
+export class CapaDiseno {
+  constructor(
+    public id: number,
+    public tipoMaterial: string,
+    public nombre: string,
+    public coeficienteAporte: number,
+    public coeficienteDrenaje: number,
+    public espesor: number,
+    public aporteAlsn: number,
+  ) { }
+}

@@ -1,0 +1,94 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="page-header col-lg-12" [ngStyle]="{'padding-top': '12px'}">
+            <div class="alert alert-info">
+                <h4>Agregar capa de diseño</h4>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="myForm" novalidate (ngSubmit)="okModal()">
+        <div class="row">
+            <div class="col-xl-5">
+                <label for="id_tipomaterial" class="form-control-label">Tipo material</label>
+            </div>
+            <div class="col-xl-6">
+                <div class="form-group input-group" [ngStyle]="{'height':'38px', 'width':'269px'}">
+                    <select class="form-control form-control-success" formControlName="tipomaterial" id="id_tipomaterial" [ngStyle]="{'height':'38px'}">
+                            <option *ngFor="let tipoMaterialOpt of tipoMaterialOptions" [value]="tipoMaterialOpt">{{tipoMaterialOpt}}</option>
+                         </select>
+                </div>
+                <p [hidden]="(!myForm.dirty) || myForm.controls.tipomaterial.valid" class="small text-danger">
+                    {{ errorMessages.tipomaterial }}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-5">
+                <label for="id_nombre" class="form-control-label">Nombre personalizado</label>
+            </div>
+            <div class="col-xl-6">
+                <div class="form-group input-group" [ngStyle]="{'width':'269px'}">
+                    <input type="text" formControlName="nombre" class="form-control" id="id_nombre">
+                </div>
+                <p [hidden]="(!myForm.dirty) || myForm.controls.nombre.valid" class="small text-danger">
+                    {{ errorMessages.nombre }}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-5">
+                <label for="id_coefaporte" class="form-control-label">Coeficiente de aporte</label>
+            </div>
+            <div class="col-xl-6">
+                <div class="form-group input-group">
+                    <span class="input-group-addon">a</span>
+                    <input type="text" formControlName="coefaporte" class="form-control" id="id_coefaporte">
+                </div>
+                <p [hidden]="(!myForm.dirty) || myForm.controls.coefaporte.valid" class="small text-danger">
+                    {{ errorMessages.coefaporte }}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-5">
+                <label for="id_coefdrenaje" class="form-control-label">Coeficiente de drenaje</label>
+            </div>
+            <div class="col-xl-6">
+                <div class="form-group input-group">
+                    <span class="input-group-addon">m</span>
+                    <input type="text" formControlName="coefdrenaje" class="form-control" id="id_coefdrenaje">
+                </div>
+                <p [hidden]="(!myForm.dirty) || myForm.controls.coefdrenaje.valid" class="small text-danger">
+                    {{ errorMessages.coefdrenaje }}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-5">
+                <label for="id_espesor" class="form-control-label">Espesor de la capa</label>
+            </div>
+            <div class="col-xl-6">
+                <div class="form-group input-group">
+                    <input type="text" formControlName="espesor" class="form-control" id="id_espesor">
+                    <span class="input-group-addon">cm</span>
+                </div>
+                <p [hidden]="(!myForm.dirty) || myForm.controls.espesor.valid" class="small text-danger">
+                    {{ errorMessages.espesor }}
+                </p>
+            </div>
+        </div>
+        <div class="row col-xs-13">
+            <div class="col-xs-6">
+                <button type="button" (click)="cancelModal()" class="btn btn-danger center-block">Cancelar</button>
+            </div>
+            <div class="col-xs-1">
+            </div>
+            <div class="col-xs-13">
+                <button type="submit" class="btn btn-primary center-block">Aceptar</button>
+            </div>
+        </div>
+    </form>
+    <div class="row col-xs-12">
+        <p></p>
+    </div>
+</div>

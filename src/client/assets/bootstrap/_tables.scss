@@ -16,8 +16,9 @@
   }
 
   thead th {
-    vertical-align: bottom;
+    vertical-align: middle;
     border-bottom: (2 * $table-border-width) solid $table-border-color;
+    text-align: center;
   }
 
   tbody + tbody {

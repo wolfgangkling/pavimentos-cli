@@ -11,6 +11,8 @@ import { Logger } from "angular2-logger/core";
 @Injectable()
 export class AashtoFlexibleService {
 
+  pavimento: Pavimento;
+  
   constructor(
     private logger: Logger
   ) {
@@ -38,15 +40,15 @@ export class AashtoFlexibleService {
       2.32 * Math.log10(Mr / 0.07) - 8.07, 2);
 
     for (var i = 0; logW18_objetivo != log_obtenido && i < 100; i++) {
-      //this.logger.debug('Zr * So + 9.36 * Math.log10(SN_tant + 1) - 0.2: ' + (Zr * So + 9.36 * Math.log10(SN_tant + 1) - 0.2));
-      //this.logger.debug('Math.log10((Po - Pt) / 2.7): ' + (Math.log10((Po - Pt) / 2.7)));
-      //this.logger.debug('(0.4 + (1094 / ((SN_tant + 1) ^ 5.19))): ' + (0.4 + (1094 / (Math.pow(SN_tant + 1, 5.19)))));
-      //this.logger.debug('2.32 * Math.log10(Mr / 0.07) - 8.07, 3: ' + (2.32 * Math.log10(Mr / 0.07) - 8.07));
-      this.logger.debug('iter: ' + (i + 1));
-      this.logger.debug('   logW18_objetivo: ' + logW18_objetivo);
-      this.logger.debug('   log_obtenido: ' + log_obtenido);
-      this.logger.debug('   SN_1: ' + SN_1);
-      this.logger.debug('   SN_2: ' + SN_2);
+      //this.logger.log('Zr * So + 9.36 * Math.log10(SN_tant + 1) - 0.2: ' + (Zr * So + 9.36 * Math.log10(SN_tant + 1) - 0.2));
+      //this.logger.log('Math.log10((Po - Pt) / 2.7): ' + (Math.log10((Po - Pt) / 2.7)));
+      //this.logger.log('(0.4 + (1094 / ((SN_tant + 1) ^ 5.19))): ' + (0.4 + (1094 / (Math.pow(SN_tant + 1, 5.19)))));
+      //this.logger.log('2.32 * Math.log10(Mr / 0.07) - 8.07, 3: ' + (2.32 * Math.log10(Mr / 0.07) - 8.07));
+      this.logger.log('iter: ' + (i + 1));
+      this.logger.log('   logW18_objetivo: ' + logW18_objetivo);
+      this.logger.log('   log_obtenido: ' + log_obtenido);
+      this.logger.log('   SN_1: ' + SN_1);
+      this.logger.log('   SN_2: ' + SN_2);
 
       if (logW18_objetivo < log_obtenido) {
         SN_2 = SN_1;
@@ -60,11 +62,11 @@ export class AashtoFlexibleService {
         2.32 * Math.log10(Mr / 0.07) - 8.07, 2);
     }
     if (logW18_objetivo == log_obtenido) {
-      this.logger.debug('logW18_objetivo == log_obtenido');
+      this.logger.log('logW18_objetivo == log_obtenido');
       pavimento.numestruc = roundDecimal(SN_1, 2);
     }
     else {
-      this.logger.debug('no converge');
+      this.logger.log('no converge');
       pavimento.numestruc = null;
     }
 
@@ -135,4 +137,15 @@ export class AashtoFlexibleService {
       '50.00',
     ]
   }
+
+  tipoMaterialOptions(): string[] {
+    return [
+      'Concreto asfáltico',
+      'Base granular',
+      'Subbase granular',
+      'Base tratada con asfalto',
+      'Base tratada con emulsión',
+      'Base tratada con cemento',
+    ]
+  }  
 }
