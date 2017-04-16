@@ -103,8 +103,6 @@ export class EspesoresDisenoComponent implements OnInit {
         this.myForm.controls['numestrucdis'].setErrors(null, true);
 
         if (this.myForm.controls['numestrucreq'].value > this.myForm.controls['numestrucdis'].value) {
-            this.logger.debug('this.myForm.controls.numestrucreq: ' + this.myForm.controls.numestrucreq.value);
-            this.logger.debug('this.myForm.controls.numestrucdis: ' + this.myForm.controls.numestrucdis.value);
             //Raise error to numestrucdis control
             this.myForm.controls['numestrucdis'].setErrors({ invalid: 'invalid' }, true);
             this.setErrorMessagesToForm();
