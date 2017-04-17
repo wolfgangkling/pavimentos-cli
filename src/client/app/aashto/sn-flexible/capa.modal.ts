@@ -22,7 +22,7 @@ export class CapaModalContext extends BSModalContext {
 })
 export class CapaModal implements CloseGuard, ModalComponent<CapaModalContext>, OnInit {
 
-    context: CapaModalContext;    
+    context: CapaModalContext;
     tipoMaterialOptions: string[];
     myForm: FormGroup;
     validationMessages: { [key: string]: { [key: string]: string } } = {};
@@ -48,6 +48,15 @@ export class CapaModal implements CloseGuard, ModalComponent<CapaModalContext>, 
             coefdrenaje: ['', [Validators.required]],
             espesor: ['', [Validators.required]],
         });
+
+        if (this.aashtoFlexibleService.capaDiseno != undefined) {
+            let capaDiseno: CapaDiseno = this.aashtoFlexibleService.capaDiseno;
+            this.myForm.controls['tipomaterial'].setValue(capaDiseno.tipoMaterial);
+            this.myForm.controls['nombre'].setValue(capaDiseno.nombre);
+            this.myForm.controls['coefaporte'].setValue(capaDiseno.coeficienteAporte);
+            this.myForm.controls['coefdrenaje'].setValue(capaDiseno.coeficienteDrenaje);
+            this.myForm.controls['espesor'].setValue(capaDiseno.espesor);
+        }
     }
 
     okModal() {
@@ -60,12 +69,21 @@ export class CapaModal implements CloseGuard, ModalComponent<CapaModalContext>, 
             espesor: this.myForm.value.espesor,
             aporteAlsn: undefined,
         };
-        capaDiseno.aporteAlsn = roundDecimal(capaDiseno.espesor / 2.54 * 
+        capaDiseno.aporteAlsn = roundDecimal(capaDiseno.espesor / 2.54 *
             capaDiseno.coeficienteDrenaje * capaDiseno.coeficienteAporte, 2);
+
+        //Agregando una nueva capa
+        if (this.aashtoFlexibleService.capaDiseno == undefined) {
+            this.logger.debug('Aporte al SN: ' + capaDiseno.aporteAlsn);
+            this.messageService.sendEventObject('nueva_capa_diseno', capaDiseno);
+        }
+        else { //Modificando capa existente
+            capaDiseno.id = this.aashtoFlexibleService.capaDiseno.id;
+            this.messageService.sendEventObject('edit_capa_diseno', capaDiseno);
+        }
         
-        this.logger.debug('Aporte al SN: ' + capaDiseno.aporteAlsn);
-        this.messageService.sendEventObject('nueva_capa_diseno', capaDiseno);
         this.dialog.close();
+
     }
 
     cancelModal() {

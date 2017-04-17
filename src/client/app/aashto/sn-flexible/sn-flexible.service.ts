@@ -3,7 +3,7 @@ import { Headers, Http } from '@angular/http';
 
 import 'rxjs/add/operator/toPromise';
 import { Observable } from 'rxjs/Rx';
-import { Pavimento } from './pavimento.model';
+import { Pavimento, CapaDiseno } from './pavimento.model';
 
 import { roundDecimal } from '../../utils/math.util';
 import { Logger } from "angular2-logger/core";
@@ -12,6 +12,7 @@ import { Logger } from "angular2-logger/core";
 export class AashtoFlexibleService {
 
   pavimento: Pavimento;
+  capaDiseno: CapaDiseno;
   
   constructor(
     private logger: Logger

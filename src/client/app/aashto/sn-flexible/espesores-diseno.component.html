@@ -54,10 +54,10 @@
                                 <tr>
                                     <th>Tipo de material</th>
                                     <th>Nombre</th>
-                                    <th>Coeficiente de aporte (a)</th>
-                                    <th>Coeficiente de drenaje (m)</th>
-                                    <th>Espesor de la capa (cm)</th>
-                                    <th>Aporte al SN</th>
+                                    <th>Coeficiente de aporte (a) <i class="fa fa-question-circle"></i></th>
+                                    <th>Coeficiente de drenaje (m) <i class="fa fa-question-circle"></i></th>
+                                    <th>Espesor de la capa (cm) <i class="fa fa-question-circle"></i></th>
+                                    <th>Aporte al SN <i class="fa fa-question-circle"></i></th>
                                     <th colspan="2"><a (click)="openModalAgregarCapa()"><i class="fa fa-plus-square"></i></a></th>
                                 </tr>
                             </thead>
@@ -70,7 +70,7 @@
                                     <td [ngStyle]="{'text-align':'center'}">{{capa.espesor}}</td>
                                     <td [ngStyle]="{'text-align':'center'}">{{capa.aporteAlsn}}</td>
                                     <td><a (click)="eliminarCapa(capa)"><i class="fa fa-trash-o"></i></a></td>
-                                    <td><a (click)="openModalAgregarCapa()"><i class="fa fa-edit"></i></a></td>
+                                    <td><a (click)="openModalEditarCapa(capa)"><i class="fa fa-pencil"></i></a></td>
                                 </tr>
                             </tbody>
                         </table>

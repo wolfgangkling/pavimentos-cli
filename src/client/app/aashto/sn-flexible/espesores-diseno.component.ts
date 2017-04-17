@@ -48,11 +48,30 @@ export class EspesoresDisenoComponent implements OnInit {
         let pavimento: Pavimento = this.aashtoFlexibleService.pavimento;
         this.myForm.controls['numestrucreq'].setValue(pavimento.numestruc);
 
+        //Observando eventos de creación de capas
         this.subscription = this.messageService.getEventObject('nueva_capa_diseno').subscribe(eventObject => {
             let snDiseno: number = 0;
             let capaDiseno: CapaDiseno = <CapaDiseno>eventObject;
             capaDiseno.id = this.capasDiseno.length;
             this.capasDiseno.push(capaDiseno);
+            this.capasDiseno.forEach(capaDiseno => snDiseno += capaDiseno.aporteAlsn);
+            this.myForm.controls['numestrucdis'].setValue(roundDecimal(snDiseno, 2));
+            this.verificarCumplimientoDiseno();
+        });
+
+        //Observando eventos de modificacion de capas
+        this.subscription = this.messageService.getEventObject('edit_capa_diseno').subscribe(eventObject => {
+            let snDiseno: number = 0;
+            let capaDiseno: CapaDiseno = <CapaDiseno>eventObject;
+            let capaDisenoArr: CapaDiseno = this.capasDiseno.find(elem => elem.id == capaDiseno.id);
+
+            capaDisenoArr.tipoMaterial = capaDiseno.tipoMaterial;
+            capaDisenoArr.nombre = capaDiseno.nombre;
+            capaDisenoArr.coeficienteAporte = capaDiseno.coeficienteAporte;
+            capaDisenoArr.coeficienteDrenaje = capaDiseno.coeficienteDrenaje;
+            capaDisenoArr.espesor = capaDiseno.espesor;
+            capaDisenoArr.aporteAlsn = capaDiseno.aporteAlsn;
+
             this.capasDiseno.forEach(capaDiseno => snDiseno += capaDiseno.aporteAlsn);
             this.myForm.controls['numestrucdis'].setValue(roundDecimal(snDiseno, 2));
             this.verificarCumplimientoDiseno();
@@ -82,10 +101,12 @@ export class EspesoresDisenoComponent implements OnInit {
     }
 
     openModalAgregarCapa(): any {
+        this.aashtoFlexibleService.capaDiseno = undefined;
         return this.modal.open(CapaModal, overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
     }
 
-    openModalEditarCapa(): any {
+    openModalEditarCapa(capaDiseno: CapaDiseno): any {
+        this.aashtoFlexibleService.capaDiseno = capaDiseno;
         return this.modal.open(CapaModal, overlayConfigFactory({ num1: 2, num2: 3 }, BSModalContext));
     }
 
