@@ -105,27 +105,41 @@ export class MainComponent implements OnInit {
 
         this.confiabDisenoOptions = this.getConfiabDisenoOptions();
 
-        //Delete .. just for testing purposes
-        let pavimento: Pavimento = {
-            ejesequiv: 7950000,
-            confiabdiseno: '90.00',
-            errestandar: 0.44,
-            modresili: 90,
-            servicini: 4.20,
-            servicfin: 2.0,
-            numestruc: null,
+        let pavimento: Pavimento = undefined;
+        if (this.aashtoFlexibleService.pavimento != undefined) {
+            pavimento = this.aashtoFlexibleService.pavimento;
+            this.myForm.controls['ejesequiv'].setValue(pavimento.ejesequiv);
+            this.myForm.controls['confiabdiseno'].setValue(pavimento.confiabdiseno);
+            this.myForm.controls['errestandar'].setValue(pavimento.errestandar);
+            this.myForm.controls['modresili'].setValue(pavimento.modresili);
+            this.myForm.controls['servicini'].setValue(pavimento.servicini);
+            this.myForm.controls['servicfin'].setValue(pavimento.servicfin);
+            this.myForm.controls['numestruc'].setValue(pavimento.numestruc);
+            this.calcularNumeroEstructural(this.myForm);
         }
 
-        this.myForm.controls['ejesequiv'].setValue(pavimento.ejesequiv);
-        this.myForm.controls['confiabdiseno'].setValue(pavimento.confiabdiseno);
-        this.myForm.controls['errestandar'].setValue(pavimento.errestandar);
-        this.myForm.controls['modresili'].setValue(pavimento.modresili);
-        this.myForm.controls['servicini'].setValue(pavimento.servicini);
-        this.myForm.controls['servicfin'].setValue(pavimento.servicfin);
-        this.myForm.controls['numestruc'].setValue(pavimento.numestruc);
-
-        this.calcularNumeroEstructural(this.myForm);
+        //Delete .. just for testing purposes
+        if (this.aashtoFlexibleService.pavimento == undefined) {
+            pavimento = {
+                ejesequiv: 7950000,
+                confiabdiseno: '90.00',
+                errestandar: 0.44,
+                modresili: 90,
+                servicini: 4.20,
+                servicfin: 2.0,
+                numestruc: null,
+            }
+            this.myForm.controls['ejesequiv'].setValue(pavimento.ejesequiv);
+            this.myForm.controls['confiabdiseno'].setValue(pavimento.confiabdiseno);
+            this.myForm.controls['errestandar'].setValue(pavimento.errestandar);
+            this.myForm.controls['modresili'].setValue(pavimento.modresili);
+            this.myForm.controls['servicini'].setValue(pavimento.servicini);
+            this.myForm.controls['servicfin'].setValue(pavimento.servicfin);
+            this.myForm.controls['numestruc'].setValue(pavimento.numestruc);
+            this.calcularNumeroEstructural(this.myForm);
+        }
         //END Delete .. just for testing purposes
+
     }
 
     ngOnDestroy() {
@@ -182,6 +196,10 @@ export class MainComponent implements OnInit {
 
             this.myForm.controls['numestruc'].setValue(pavimento.numestruc);
             this.logger.log('Pavimento res: ' + JSON.stringify(pavimento));
+            if (pavimento.numestruc == null)
+                this.aashtoFlexibleService.pavimento = undefined;
+            else
+                this.aashtoFlexibleService.pavimento = pavimento;
         }
         else {
             this.logger.log('Form not valid');

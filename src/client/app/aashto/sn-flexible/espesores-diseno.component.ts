@@ -80,7 +80,7 @@ export class EspesoresDisenoComponent implements OnInit {
         //Set all validation messages
         this.validationMessages = {
             'numestrucdis': {
-                'invalid': 'La estructura no cumple, SNReq > SNDis',
+                'invalid': 'La estructura no cumple, SNreq > SNdis',
             },
         }
     }
