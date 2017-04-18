@@ -13,7 +13,7 @@
             </div>
             <div class="col-xl-6">
                 <div class="form-group input-group" [ngStyle]="{'height':'38px', 'width':'269px'}">
-                    <select class="form-control form-control-success" formControlName="tipomaterial" id="id_tipomaterial" [ngStyle]="{'height':'38px'}">
+                    <select class="form-control" formControlName="tipomaterial" id="id_tipomaterial" [ngStyle]="{'height':'38px'}">
                             <option *ngFor="let tipoMaterialOpt of tipoMaterialOptions" [value]="tipoMaterialOpt">{{tipoMaterialOpt}}</option>
                          </select>
                 </div>
@@ -28,7 +28,7 @@
             </div>
             <div class="col-xl-6">
                 <div class="form-group input-group" [ngStyle]="{'width':'269px'}">
-                    <input type="text" formControlName="nombre" class="form-control" id="id_nombre">
+                    <input type="text" formControlName="nombre" class="form-control form-control-success" id="id_nombre">
                 </div>
                 <p [hidden]="(!myForm.dirty) || myForm.controls.nombre.valid" class="small text-danger">
                     {{ errorMessages.nombre }}

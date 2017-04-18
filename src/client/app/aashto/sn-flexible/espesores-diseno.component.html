@@ -36,9 +36,9 @@
                     <label for="id_numestrucdis" class="form-control-label">SN estructura de diseño</label>
                 </div>
                 <div class="col-xl-6">
-                    <div class="form-group input-group">
+                    <div class="form-group input-group" [ngClass]="[(disenoCumple ? 'has-success':'')]">
                         <span class="input-group-addon">SNdis</span>
-                        <input type="text" readonly formControlName="numestrucdis" class="form-control" id="id_numestrucdis">
+                        <input type="text" readonly formControlName="numestrucdis" class="form-control" [ngClass]="['form-control', (disenoCumple ? 'form-control-success':'')]" id="id_numestrucdis">
                         <span class="input-group-addon">pulg</span>
                     </div>
                     <p [hidden]="(myForm.controls.numestrucdis.dirty) || myForm.controls.numestrucdis.valid" class="small text-danger">

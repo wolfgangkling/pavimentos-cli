@@ -26,6 +26,7 @@ export class EspesoresDisenoComponent implements OnInit {
     capasDiseno: Array<CapaDiseno> = new Array<CapaDiseno>();
     validationMessages: { [key: string]: { [key: string]: string } } = {};
     errorMessages: { [key: string]: string } = {};
+    disenoCumple: boolean = false;
 
     constructor(
         private formBuilder: FormBuilder,
@@ -116,6 +117,9 @@ export class EspesoresDisenoComponent implements OnInit {
         let snDiseno: number = 0;
         this.capasDiseno.forEach(capaDiseno => snDiseno += capaDiseno.aporteAlsn);
         this.myForm.controls['numestrucdis'].setValue(snDiseno);
+        for(let x=0; x < this.capasDiseno.length; x++) {
+            this.capasDiseno[x].id = x;
+        }
         this.verificarCumplimientoDiseno();
     }
 
@@ -127,6 +131,10 @@ export class EspesoresDisenoComponent implements OnInit {
             //Raise error to numestrucdis control
             this.myForm.controls['numestrucdis'].setErrors({ invalid: 'invalid' }, true);
             this.setErrorMessagesToForm();
+            this.disenoCumple = false;
         }
+        else
+        //myForm.controls.numestrucdis.dirty &&myForm.valid
+            this.disenoCumple = true;
     }
 }

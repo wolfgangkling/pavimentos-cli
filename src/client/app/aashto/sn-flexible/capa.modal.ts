@@ -44,10 +44,32 @@ export class CapaModal implements CloseGuard, ModalComponent<CapaModalContext>, 
         this.myForm = this.formBuilder.group({
             tipomaterial: ['', [Validators.required]],
             nombre: ['', [Validators.required]],
-            coefaporte: ['', [Validators.required]],
-            coefdrenaje: ['', [Validators.required]],
-            espesor: ['', [Validators.required]],
+            coefaporte: ['', [Validators.required, CustomValidators.gt(0)]],
+            coefdrenaje: ['', [Validators.required, CustomValidators.gt(0)]],
+            espesor: ['', [Validators.required, CustomValidators.gt(0)]],
         });
+
+        //Set all validation messages
+        this.validationMessages = {
+            'tipomaterial': {
+                'required': 'Debe seleccionar un tipo de material',
+            },
+            'nombre': {
+                'required': 'Debe digitar un nombre para la capa',
+            },
+            'coefaporte': {
+                'required': 'Debe ingresar el coeficiente de aporte',
+                'gt': 'El coeficiente de aporte debe ser un valor numérico > 0',
+            },
+            'coefdrenaje': {
+                'required': 'Debe ingresar el coeficiente de drenaje',
+                'gt': 'El coeficiente de drenaje debe ser un valor numérico > 0',
+            },
+            'espesor': {
+                'required': 'Debe ingresar el espesor de la capa',
+                'gt': 'El espesor de la capa debe ser un valor numérico > 0',
+            },
+        }
 
         if (this.aashtoFlexibleService.capaDiseno != undefined) {
             let capaDiseno: CapaDiseno = this.aashtoFlexibleService.capaDiseno;
@@ -60,33 +82,54 @@ export class CapaModal implements CloseGuard, ModalComponent<CapaModalContext>, 
     }
 
     okModal() {
-        let capaDiseno: CapaDiseno = {
-            id: undefined,
-            tipoMaterial: this.myForm.value.tipomaterial,
-            nombre: this.myForm.value.nombre,
-            coeficienteAporte: this.myForm.value.coefaporte,
-            coeficienteDrenaje: this.myForm.value.coefdrenaje,
-            espesor: this.myForm.value.espesor,
-            aporteAlsn: undefined,
-        };
-        capaDiseno.aporteAlsn = roundDecimal(capaDiseno.espesor / 2.54 *
-            capaDiseno.coeficienteDrenaje * capaDiseno.coeficienteAporte, 2);
 
-        //Agregando una nueva capa
-        if (this.aashtoFlexibleService.capaDiseno == undefined) {
-            this.logger.debug('Aporte al SN: ' + capaDiseno.aporteAlsn);
-            this.messageService.sendEventObject('nueva_capa_diseno', capaDiseno);
-        }
-        else { //Modificando capa existente
-            capaDiseno.id = this.aashtoFlexibleService.capaDiseno.id;
-            this.messageService.sendEventObject('edit_capa_diseno', capaDiseno);
-        }
-        
-        this.dialog.close();
+        this.setErrorMessagesToForm();
+        this.myForm.markAsDirty();
 
+        if (this.myForm.valid) {
+            let capaDiseno: CapaDiseno = {
+                id: undefined,
+                tipoMaterial: this.myForm.value.tipomaterial,
+                nombre: this.myForm.value.nombre,
+                coeficienteAporte: this.myForm.value.coefaporte,
+                coeficienteDrenaje: this.myForm.value.coefdrenaje,
+                espesor: this.myForm.value.espesor,
+                aporteAlsn: undefined,
+            };
+            capaDiseno.aporteAlsn = roundDecimal(capaDiseno.espesor / 2.54 *
+                capaDiseno.coeficienteDrenaje * capaDiseno.coeficienteAporte, 2);
+
+            //Agregando una nueva capa
+            if (this.aashtoFlexibleService.capaDiseno == undefined) {
+                this.logger.debug('Aporte al SN: ' + capaDiseno.aporteAlsn);
+                this.messageService.sendEventObject('nueva_capa_diseno', capaDiseno);
+            }
+            else { //Modificando capa existente
+                capaDiseno.id = this.aashtoFlexibleService.capaDiseno.id;
+                this.messageService.sendEventObject('edit_capa_diseno', capaDiseno);
+            }
+
+            this.dialog.close();
+        } 
     }
 
     cancelModal() {
         this.dialog.close();
     }
+
+    //Sets the correct error message to the this.errorMessages['fieldName'] 
+    setErrorMessagesToForm() {
+
+        for (var field in this.validationMessages) {
+
+            const control = this.myForm.get(field);
+            if (!control.valid) {
+                const messages = this.validationMessages[field];
+                for (const key in control.errors) {
+                    this.errorMessages[field] = messages[key] + ' ';
+                }
+            }
+        }
+    }
+
 }
