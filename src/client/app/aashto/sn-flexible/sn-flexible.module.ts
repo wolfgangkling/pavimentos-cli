@@ -24,6 +24,7 @@ import { ServiciabilidadInicialModal } from './servicini.modal';
 import { ServiciabilidadFinalModal } from './servicfin.modal';
 import { NumeroEstructuralModal } from './numestruc.modal';
 import { CapaModal } from './capa.modal';
+import { InformeModal } from './informe.modal';
 
 import { AashtoFlexibleService } from './sn-flexible.service';
 import { MessageService } from '../../messaging/message.service';
@@ -52,6 +53,7 @@ import { MessageService } from '../../messaging/message.service';
         ServiciabilidadFinalModal,
         NumeroEstructuralModal,
         CapaModal,
+        InformeModal,
     ],
     exports: [MainComponent],
     entryComponents: [
@@ -63,6 +65,7 @@ import { MessageService } from '../../messaging/message.service';
         ServiciabilidadFinalModal,
         NumeroEstructuralModal,
         CapaModal,
+        InformeModal,
     ],
     providers: [
         MessageService,

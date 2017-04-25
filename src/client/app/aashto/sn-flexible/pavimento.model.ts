@@ -21,3 +21,13 @@ export class CapaDiseno {
     public aporteAlsn: number,
   ) { }
 }
+
+export class InfoReferencia {
+  constructor(
+    public proyecto: string,
+    public via: string,
+    public localizacion: string,
+    public cliente: string,
+    public ingenieroDiseno: string,
+  ) { }
+}

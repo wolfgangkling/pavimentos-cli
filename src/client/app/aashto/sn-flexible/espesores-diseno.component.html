@@ -38,17 +38,21 @@
                 <div class="col-xl-6">
                     <div class="form-group input-group" [ngClass]="[(disenoCumple ? 'has-success':'')]">
                         <span class="input-group-addon">SNdis</span>
-                        <input type="text" readonly formControlName="numestrucdis" class="form-control" [ngClass]="['form-control', (disenoCumple ? 'form-control-success':'')]" id="id_numestrucdis">
+                        <input type="text" readonly formControlName="numestrucdis" class="form-control" [ngClass]="['form-control', (disenoCumple ? 'form-control-success':'')]"
+                            id="id_numestrucdis">
                         <span class="input-group-addon">pulg</span>
                     </div>
                     <p [hidden]="(myForm.controls.numestrucdis.dirty) || myForm.controls.numestrucdis.valid" class="small text-danger">
                         {{ errorMessages.numestrucdis }}
                     </p>
                 </div>
+                <div class="col-xl-3">
+                    <button type="button" class="btn btn-success" data-toggle="modal" (click)="openModalCrearPdf()" [hidden]="!disenoCumple" >Descargar informe</button>
+                </div>
             </div>
             <div class="row">
                 <div class="col-lg-10 col-lg-offset-1">
-                    <div class="table-responsive">
+                    <div class="table-responsive" id="capas_diseno">
                         <table class="table table-hover table-striped">
                             <thead>
                                 <tr>

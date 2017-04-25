@@ -1,0 +1,89 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="page-header col-lg-12" [ngStyle]="{'padding-top': '12px'}">
+            <div class="alert alert-info">
+                <h4>Descargar informe</h4>
+            </div>
+        </div>
+    </div>
+    <form [formGroup]="myForm" novalidate (ngSubmit)="okModal()">
+        <div class="row">
+            <div class="col-xl-5">
+                <label for="id_proyecto" class="form-control-label">Nombre proyecto</label>
+            </div>
+            <div class="col-xl-6">
+                <div class="form-group input-group" [ngStyle]="{'width':'269px'}">
+                    <input type="text" formControlName="proyecto" class="form-control form-control-success" id="id_proyecto">
+                </div>
+                <p [hidden]="(!myForm.dirty) || myForm.controls.proyecto.valid" class="small text-danger">
+                    {{ errorMessages.proyecto }}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-5">
+                <label for="id_via" class="form-control-label">Via</label>
+            </div>
+            <div class="col-xl-6">
+                <div class="form-group input-group" [ngStyle]="{'width':'269px'}">
+                    <input type="text" formControlName="via" class="form-control form-control-success" id="id_via">
+                </div>
+                <p [hidden]="(!myForm.dirty) || myForm.controls.via.valid" class="small text-danger">
+                    {{ errorMessages.via }}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-5">
+                <label for="id_localizacion" class="form-control-label">Localización</label>
+            </div>
+            <div class="col-xl-6">
+                <div class="form-group input-group">
+                    <input type="text" formControlName="localizacion" class="form-control" id="id_localizacion">
+                </div>
+                <p [hidden]="(!myForm.dirty) || myForm.controls.localizacion.valid" class="small text-danger">
+                    {{ errorMessages.localizacion }}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-5">
+                <label for="id_cliente" class="form-control-label">Cliente / Agencia</label>
+            </div>
+            <div class="col-xl-6">
+                <div class="form-group input-group">
+                    <input type="text" formControlName="cliente" class="form-control" id="id_cliente">
+                </div>
+                <p [hidden]="(!myForm.dirty) || myForm.controls.cliente.valid" class="small text-danger">
+                    {{ errorMessages.cliente }}
+                </p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-5">
+                <label for="id_ingenieroDiseno" class="form-control-label">Ingeniero de diseño</label>
+            </div>
+            <div class="col-xl-6">
+                <div class="form-group input-group">
+                    <input type="text" formControlName="ingenieroDiseno" class="form-control" id="id_ingenieroDiseno">
+                </div>
+                <p [hidden]="(!myForm.dirty) || myForm.controls.ingenieroDiseno.valid" class="small text-danger">
+                    {{ errorMessages.ingenieroDiseno }}
+                </p>
+            </div>
+        </div>
+        <div class="row col-xs-13">
+            <div class="col-xs-6">
+                <button type="button" (click)="cancelModal()" class="btn btn-danger center-block">Cancelar</button>
+            </div>
+            <div class="col-xs-1">
+            </div>
+            <div class="col-xs-13">
+                <button type="submit" class="btn btn-primary center-block">Aceptar</button>
+            </div>
+        </div>
+    </form>
+    <div class="row col-xs-12">
+        <p></p>
+    </div>
+</div>
