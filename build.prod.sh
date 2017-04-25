@@ -14,7 +14,7 @@ sudo ln -s ./mydatepicker/bundles/mydatepicker.umd.js mydatepicker.js
 sudo ln -s ./ng2-bootstrap/components components
 sudo ln -s ./ng2-validation/bundles/ng2-validation.umd.js ng2-validation.js
 sudo ln -s ./angular2-modal/bundles/angular2-modal.umd.js angular2-modal.js
-sudo ln -s ./jspdf/dist/jspdf.min.js jspdf.js
+sudo ln -s ./jspdf/dist/jspdf.debug.js jspdf.js
 
 cd ./angular2-modal/plugins
 sudo ln -s ../../angular2-modal/bundles/angular2-modal.bootstrap.umd.js bootstrap.js
