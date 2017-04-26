@@ -10,8 +10,9 @@ import { InformeModal, InformeModalContext } from './informe.modal';
 import { MessageService } from '../../messaging/message.service';
 import { Subscription } from 'rxjs/Subscription';
 import { roundDecimal } from '../../utils/math.util';
-import * as jsPDF from 'jspdf';
+//import * as jsPDF from 'jspdf';
 //declare var jsPDF: any;
+declare let jsPDF: any;
 
 @Component({
     moduleId: module.id,
