@@ -43,17 +43,17 @@ export class InformeModal implements CloseGuard, ModalComponent<InformeModalCont
             proyecto: ['', [Validators.required]],
             via: ['', [Validators.required]],
             localizacion: ['', [Validators.required]],
-            cliente: ['', [Validators.required]],
+            cliente: ['',],
             ingenieroDiseno: ['', [Validators.required]],
         });
 
         //Set all validation messages
         this.validationMessages = {
             'proyecto': {
-                'required': 'Debe seleccionar un nombre de proyecto',
+                'required': 'Debe ingresar un nombre de proyecto',
             },
             'via': {
-                'required': 'Debe digitar un nombre de vía',
+                'required': 'Debe ingresar un nombre de vía',
             },
             'localizacion': {
                 'required': 'Debe ingresar una localización',
@@ -92,9 +92,8 @@ export class InformeModal implements CloseGuard, ModalComponent<InformeModalCont
             this.aashtoFlexibleService.infoReferencia = infoReferencia;
             this.logger.debug('Se agregó información de referencia');
             this.messageService.sendEventObject('info_referencia', '');
+            this.dialog.close();
         }
-
-        this.dialog.close();
     }
 
     cancelModal() {
