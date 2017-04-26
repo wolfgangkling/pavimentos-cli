@@ -65,6 +65,7 @@ export class EspesoresDisenoComponent implements OnInit {
             this.generarPdf();
         });
 
+        /* 
         //Delete, only por testing purposes
         let capaDiseno: CapaDiseno = {
             id: 0,
@@ -91,6 +92,7 @@ export class EspesoresDisenoComponent implements OnInit {
             capaDiseno2.coeficienteDrenaje * capaDiseno2.coeficienteAporte, 2);
         this.agregarCapa(capaDiseno2);
         //END Delete, only por testing purposes
+        */
 
         //Observando eventos de modificacion de capas
         this.subscription = this.messageService.getEventObject('edit_capa_diseno').subscribe(eventObject => {

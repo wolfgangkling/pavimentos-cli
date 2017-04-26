@@ -117,7 +117,7 @@ export class MainComponent implements OnInit {
             this.myForm.controls['numestruc'].setValue(pavimento.numestruc);
             this.calcularNumeroEstructural(this.myForm);
         }
-
+        /*
          //Delete .. just for testing purposes 
         if (this.aashtoFlexibleService.pavimento == undefined) {
             pavimento = {
@@ -139,6 +139,7 @@ export class MainComponent implements OnInit {
             this.calcularNumeroEstructural(this.myForm);
         }
         //END Delete .. just for testing purposes
+        */
 
     }
 
