@@ -14,6 +14,7 @@ export class AashtoFlexibleService {
   pavimento: Pavimento;
   capaDiseno: CapaDiseno;
   infoReferencia: InfoReferencia;
+  capasDiseno: Array<CapaDiseno>;
   
   constructor(
     private logger: Logger

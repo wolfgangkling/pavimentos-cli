@@ -10,8 +10,8 @@ import { InformeModal, InformeModalContext } from './informe.modal';
 import { MessageService } from '../../messaging/message.service';
 import { Subscription } from 'rxjs/Subscription';
 import { roundDecimal } from '../../utils/math.util';
+import { Router } from '@angular/router';
 //import * as jsPDF from 'jspdf';
-//declare var jsPDF: any;
 declare let jsPDF: any;
 
 @Component({
@@ -41,6 +41,7 @@ export class EspesoresDisenoComponent implements OnInit {
         vcRef: ViewContainerRef,
         public modal: Modal,
         private messageService: MessageService,
+        private router: Router,
         @Inject('Window') private window: Window,
     ) {
         overlay.defaultViewContainer = vcRef;
@@ -54,6 +55,10 @@ export class EspesoresDisenoComponent implements OnInit {
         });
         let pavimento: Pavimento = this.aashtoFlexibleService.pavimento;
         this.myForm.controls['numestrucreq'].setValue(pavimento.numestruc);
+
+        if (this.aashtoFlexibleService.capasDiseno != undefined)
+            this.capasDiseno = this.aashtoFlexibleService.capasDiseno;
+
 
         //Observando eventos de creación de capas
         this.subscription = this.messageService.getEventObject('nueva_capa_diseno').subscribe(eventObject => {
@@ -119,6 +124,11 @@ export class EspesoresDisenoComponent implements OnInit {
                 'invalid': 'La estructura no cumple, SNreq > SNdis',
             },
         }
+        let snDiseno: number = 0;
+        this.capasDiseno.forEach(capaDiseno => snDiseno += capaDiseno.aporteAlsn);
+        this.numestrucdis = roundDecimal(snDiseno, 2);
+        this.myForm.controls['numestrucdis'].setValue(this.numestrucdis);
+        this.verificarCumplimientoDiseno();
     }
 
     //Sets the correct error message to the this.errorMessages['fieldName'] 
@@ -172,6 +182,9 @@ export class EspesoresDisenoComponent implements OnInit {
         this.numestrucdis = roundDecimal(snDiseno, 2);
         this.myForm.controls['numestrucdis'].setValue(this.numestrucdis);
         this.verificarCumplimientoDiseno();
+        if (this.aashtoFlexibleService.capasDiseno == undefined)
+            this.aashtoFlexibleService.capasDiseno = this.capasDiseno;
+
     }
 
     verificarCumplimientoDiseno(): void {
@@ -323,5 +336,11 @@ export class EspesoresDisenoComponent implements OnInit {
 
         doc.save('asshto-flex-(www.pavimation.com).pdf');
 
+    }
+
+    parametrosDiseno(): void {
+        if (this.aashtoFlexibleService.pavimento != undefined) {
+            this.router.navigateByUrl('/dashboard/sn-flexible', { skipLocationChange: true });
+        }
     }
 }
