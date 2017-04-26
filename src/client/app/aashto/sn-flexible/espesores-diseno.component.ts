@@ -11,6 +11,7 @@ import { MessageService } from '../../messaging/message.service';
 import { Subscription } from 'rxjs/Subscription';
 import { roundDecimal } from '../../utils/math.util';
 import * as jsPDF from 'jspdf';
+//declare var jsPDF: any;
 
 @Component({
     moduleId: module.id,

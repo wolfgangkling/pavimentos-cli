@@ -8,6 +8,7 @@ sudo rm -rf components
 sudo rm ng2-validation.js
 sudo rm angular2-modal.js
 sudo rm ./angular2-modal/plugins/bootstrap.js
+sudo rm jspdf.js
 
 sudo ln -s ./ng2-bootstrap/ng2-bootstrap.js ng2-bootstrap.js
 sudo ln -s ./mydatepicker/bundles/mydatepicker.umd.js mydatepicker.js
