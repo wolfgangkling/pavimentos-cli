@@ -14,14 +14,9 @@ export class MessageService {
         this.observables[eventEmitterId].next(eventObject);       
     }
  
-    clearMessage(eventEmitterId: string) {
-        this.observables[eventEmitterId].next();
-    }
- 
     getEventObject<T>(eventEmitterId: string): Observable<T> {
-        if(this.observables[eventEmitterId] == null){
-            this.observables[eventEmitterId] = new Subject<any>();;            
-        }
+        //Se renueva el Subject cada vez para no recibir mensajes encolados.
+        this.observables[eventEmitterId] = new Subject<any>();;            
         return this.observables[eventEmitterId].asObservable();
     }
 }

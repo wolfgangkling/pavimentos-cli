@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 //https://github.com/kekeh/mydatepicker#locale-attribute
 import { IMyOptions, IMyDate, IMyDateModel, IMyCalendarViewChanged } from 'mydatepicker';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Logger } from "angular2-logger/core";
+import { LoggerService } from '../../logger/logger.service';
 
 @Component({
     moduleId: module.id,
@@ -27,7 +27,7 @@ export class MainComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private logger: Logger
+        private logger: LoggerService
     ) {
     }
 

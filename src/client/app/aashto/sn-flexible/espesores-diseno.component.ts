@@ -1,6 +1,6 @@
-import { Component, OnInit, ViewContainerRef, Inject } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewContainerRef, Inject } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Logger } from 'angular2-logger/core';
+import { LoggerService } from '../../logger/logger.service';
 import { AashtoFlexibleService } from './sn-flexible.service';
 import { Pavimento, CapaDiseno } from './pavimento.model';
 import { Overlay, overlayConfigFactory } from 'angular2-modal';
@@ -23,10 +23,10 @@ declare let jsPDF: any;
     ]
 })
 
-export class EspesoresDisenoComponent implements OnInit {
+export class EspesoresDisenoComponent implements OnInit, OnDestroy {
 
     myForm: FormGroup;
-    subscription: Subscription;
+    subscriptions: { [key: string]: Subscription } = {};
     capasDiseno: Array<CapaDiseno> = new Array<CapaDiseno>();
     validationMessages: { [key: string]: { [key: string]: string } } = {};
     errorMessages: { [key: string]: string } = {};
@@ -35,7 +35,7 @@ export class EspesoresDisenoComponent implements OnInit {
 
     constructor(
         private formBuilder: FormBuilder,
-        private logger: Logger,
+        private logger: LoggerService,
         private aashtoFlexibleService: AashtoFlexibleService,
         overlay: Overlay,
         vcRef: ViewContainerRef,
@@ -48,6 +48,7 @@ export class EspesoresDisenoComponent implements OnInit {
     }
 
     ngOnInit() {
+
         //Initialize form controls
         this.myForm = this.formBuilder.group({
             numestrucreq: [''],
@@ -61,12 +62,13 @@ export class EspesoresDisenoComponent implements OnInit {
 
 
         //Observando eventos de creación de capas
-        this.subscription = this.messageService.getEventObject('nueva_capa_diseno').subscribe(eventObject => {
+        this.subscriptions['nueva_capa_diseno'] = this.messageService.getEventObject('nueva_capa_diseno').subscribe(eventObject => {
+            console.log('***** Evento: nueva_capa_diseno');
             this.agregarCapa(<CapaDiseno>eventObject);
         });
 
-        //Observando eventos de información de referencia
-        this.subscription = this.messageService.getEventObject('info_referencia').subscribe(eventObject => {
+        //Observando eventos de información de referencia para generación del pdf
+        this.subscriptions['info_referencia'] = this.messageService.getEventObject('info_referencia').subscribe(eventObject => {
             this.generarPdf();
         });
 
@@ -100,7 +102,7 @@ export class EspesoresDisenoComponent implements OnInit {
         */
 
         //Observando eventos de modificacion de capas
-        this.subscription = this.messageService.getEventObject('edit_capa_diseno').subscribe(eventObject => {
+        this.subscriptions['edit_capa_diseno'] = this.messageService.getEventObject('edit_capa_diseno').subscribe(eventObject => {
             let snDiseno: number = 0;
             let capaDiseno: CapaDiseno = <CapaDiseno>eventObject;
             let capaDisenoArr: CapaDiseno = this.capasDiseno.find(elem => elem.id == capaDiseno.id);
@@ -129,6 +131,12 @@ export class EspesoresDisenoComponent implements OnInit {
         this.numestrucdis = roundDecimal(snDiseno, 2);
         this.myForm.controls['numestrucdis'].setValue(this.numestrucdis);
         this.verificarCumplimientoDiseno();
+    }
+
+    ngOnDestroy(){
+        this.subscriptions['nueva_capa_diseno'].unsubscribe();
+        this.subscriptions['info_referencia'].unsubscribe();
+        this.subscriptions['edit_capa_diseno'].unsubscribe();
     }
 
     //Sets the correct error message to the this.errorMessages['fieldName'] 
@@ -175,6 +183,7 @@ export class EspesoresDisenoComponent implements OnInit {
     }
 
     agregarCapa(capaDiseno: CapaDiseno): void {
+        console.log('***** agregarCapa');
         let snDiseno: number = 0;
         capaDiseno.id = this.capasDiseno.length;
         this.capasDiseno.push(capaDiseno);
@@ -184,7 +193,6 @@ export class EspesoresDisenoComponent implements OnInit {
         this.verificarCumplimientoDiseno();
         if (this.aashtoFlexibleService.capasDiseno == undefined)
             this.aashtoFlexibleService.capasDiseno = this.capasDiseno;
-
     }
 
     verificarCumplimientoDiseno(): void {

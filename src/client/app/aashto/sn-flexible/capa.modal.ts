@@ -9,7 +9,7 @@ import { MessageService } from '../../messaging/message.service';
 import { Pavimento, CapaDiseno } from './pavimento.model';
 
 import { AashtoFlexibleService } from './sn-flexible.service';
-import { Logger } from 'angular2-logger/core';
+import { LoggerService } from '../../logger/logger.service';
 import { roundDecimal } from '../../utils/math.util';
 
 export class CapaModalContext extends BSModalContext {
@@ -33,13 +33,14 @@ export class CapaModal implements CloseGuard, ModalComponent<CapaModalContext>, 
         private messageService: MessageService,
         private aashtoFlexibleService: AashtoFlexibleService,
         private formBuilder: FormBuilder,
-        private logger: Logger,
+        private logger: LoggerService,
     ) {
         this.context = dialog.context;
         this.tipoMaterialOptions = this.aashtoFlexibleService.tipoMaterialOptions();
     }
 
     ngOnInit() {
+
         //Initialize form controls
         this.myForm = this.formBuilder.group({
             tipomaterial: ['', [Validators.required]],

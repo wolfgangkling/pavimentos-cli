@@ -1,6 +1,6 @@
 import { Component, ViewContainerRef } from '@angular/core';
 import { Config } from './shared/index';
-import { Logger } from "angular2-logger/core";
+import { LoggerService } from './logger/logger.service';
 
 /**
  * This class represents the main application component. Within the @Routes annotation is the configuration of the
@@ -16,7 +16,7 @@ export class AppComponent {
 	private viewContainerRef: ViewContainerRef;
 	public constructor(
 		viewContainerRef:ViewContainerRef,
-        private logger: Logger
+        private logger: LoggerService
 		) {
 		// You need this small hack in order to catch application root view container ref
 		this.viewContainerRef = viewContainerRef;

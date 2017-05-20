@@ -11,7 +11,7 @@ import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
 //Observer observable imports
 import { MessageService } from '../../messaging/message.service';
 //Logger imports
-import { Logger } from 'angular2-logger/core';
+import { LoggerService } from '../../logger/logger.service';
 //Business imports
 import { Pavimento } from './pavimento.model';
 import { AashtoFlexibleService } from './sn-flexible.service';
@@ -51,7 +51,7 @@ export class MainComponent implements OnInit {
         vcRef: ViewContainerRef,
         public modal: Modal,
         private messageService: MessageService,
-        private logger: Logger,
+        private logger: LoggerService,
         private router: Router,
     ) {
         overlay.defaultViewContainer = vcRef;

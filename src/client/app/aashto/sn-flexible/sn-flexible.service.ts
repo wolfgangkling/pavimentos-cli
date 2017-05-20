@@ -6,7 +6,7 @@ import { Observable } from 'rxjs/Rx';
 import { Pavimento, CapaDiseno, InfoReferencia } from './pavimento.model';
 
 import { roundDecimal } from '../../utils/math.util';
-import { Logger } from "angular2-logger/core";
+import { LoggerService } from '../../logger/logger.service';
 
 @Injectable()
 export class AashtoFlexibleService {
@@ -17,7 +17,7 @@ export class AashtoFlexibleService {
   capasDiseno: Array<CapaDiseno>;
   
   constructor(
-    private logger: Logger
+    private logger: LoggerService
   ) {
   }
 
